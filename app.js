@@ -366,7 +366,7 @@ function askMenu(senderID, local) {
 
   messageData.message.attachment.payload.elements.push({
         title: "Amber Lager",  
-        image_url: "https://cdn.shopify.com/s/files/1/1103/5152/products/cerveza_patagonia_amber_lager_product_7eaab25a-7292-497f-b1ce-6cb9f0477061_1024x1024.png?v=1465834631" ,
+        image_url: "./style/Patagonia_AmberLager-1.png" ,
         buttons: [{
                    type: "postback",
                    title: "Agregar Item",
