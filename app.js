@@ -372,7 +372,7 @@ function receivedPostback(messagingEvent){
     function analizePayloads(name){
          switch(payload){
             case "USER_START":
-                sendTextMessage(senderID,userName);
+                userStartPostback(senderID, name);
               break;
           }
      }
