@@ -298,14 +298,12 @@ function userStartPostback(senderID, userName){
 function sendReceipt(senderID, itemPedidosList) {
   console.log("generando el recibo pa");
   var total = {total_cost: 0};
-  console.log("ASdasdasdsa" + itemPedidosList);
+
   for(var i = 0; i < itemPedidosList.length; i++)
   {
         total.total_cost += parseFloat(itemPedidosList[i].precio);
-    console.log(itemPedidosList[i].precio);
   }
-  //total.total_cost = total;
-  console.log("dio un total de : " + total.total_cost);
+  
   var messageData = {
     recipient: {
       id: senderID
@@ -326,6 +324,13 @@ function sendReceipt(senderID, itemPedidosList) {
     }
   };  
 
+  for(var i = 0; i < itemPedidosList.length; i++)
+  {
+     messageData.message.attachment.payload.elements.push({
+        title: itemPedidosList[i].variedad;
+        price: itemPedidosList[i].precio, 
+     });
+  }
   callSendAPI(messageData);
 }
 
