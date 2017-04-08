@@ -351,7 +351,7 @@ function askMenu(senderID, local) {
   
   var messageData = {
     recipient: {
-      id: recipientId
+      id: senderID
     },
     message: {
       attachment: {
