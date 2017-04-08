@@ -280,7 +280,7 @@ function userStartPostback(senderID, userName){
         quick_replies:[
           {
             content_type:"text",
-            title:"Puntos Patagonia",
+            title:"Bares Patagonia",
             payload:"SEARCH_PATAGONIA_POINTS"
           },
           {
@@ -330,7 +330,7 @@ function sendPointList(senderID){
     }
   };  
 
-  for (var i = 0; i < 5; i++) {
+  for (var i = 0; i < 10; i++) {
       messageData.message.attachment.payload.elements.push({
             title: "Bar Nº " + i,
             subtitle:"Calle Falsa 1232 \n Horario: 14:00 a 22:00",  
