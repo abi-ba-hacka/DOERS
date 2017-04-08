@@ -299,8 +299,8 @@ function sendReceipt(senderID, itemPedidosList) {
   var userDataPromise = userController.getUser(senderID);
   userDataPromise.then(function(result){
     console.log("me dieron los datos de fb " + result);
-  });
-  for(var i = 0; i < itemPedidosList.length; i++)
+
+      for(var i = 0; i < itemPedidosList.length; i++)
   {
         total.total_cost += parseFloat(itemPedidosList[i].precio);
   }
@@ -314,7 +314,7 @@ function sendReceipt(senderID, itemPedidosList) {
         type: "template",
         payload: {
           template_type: "receipt",
-          recipient_name: "Federico Pérez",
+          recipient_name: result.apellido + result.nombre,
           order_number: "12314123",
           currency: "ARS",
           payment_method: "VISA 5494",
@@ -333,6 +333,8 @@ function sendReceipt(senderID, itemPedidosList) {
      });
   }
   callSendAPI(messageData);
+  });
+
 }
 
 function userGetsReceipt(senderID) {
