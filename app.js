@@ -528,8 +528,8 @@ function askMenu(senderID, local) {
     }
   };  
 
-  postbackObject.variedad = "amber";
-  postbackObject.precio = "35";
+  postbackObject.variedad = "Amber Lager";
+  postbackObject.precio = "68";
   messageData.message.attachment.payload.elements.push({
         title: "Amber Lager",  
         image_url: "https://beermaster.herokuapp.com/style/AmberLager.png" ,
@@ -540,8 +540,8 @@ function askMenu(senderID, local) {
                   }]
   });
 
-  postbackObject.variedad = "bohemian";
-  postbackObject.precio = "37";
+  postbackObject.variedad = "Bohemian Pilsener";
+  postbackObject.precio = "68";
   messageData.message.attachment.payload.elements.push({
         title: "Bohemian Pilsener",  
         image_url: "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-B-Pilsener-1000x1467_1024x1024.png?v=1465834640" ,
@@ -551,8 +551,8 @@ function askMenu(senderID, local) {
                    payload: JSON.stringify(postbackObject)
                   }]
   });
-  postbackObject.variedad = "kune";
-  postbackObject.precio = "40";
+  postbackObject.variedad = "Patagonia Küné";
+  postbackObject.precio = "58";
   messageData.message.attachment.payload.elements.push({
         title: "Patagonia Küné",  
         image_url: "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-Kune-1000x1467_987808b4-187e-4a71-a7f3-fd05793467c7_1024x1024.png?v=1465834661" ,
