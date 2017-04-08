@@ -327,8 +327,8 @@ function sendReceipt(senderID, itemPedidosList) {
   for(var i = 0; i < itemPedidosList.length; i++)
   {
      messageData.message.attachment.payload.elements.push({
-        title: itemPedidosList[i].variedad;
-        price: itemPedidosList[i].precio, 
+        title: itemPedidosList[i].variedad,
+        price: itemPedidosList[i].precio
      });
   }
   callSendAPI(messageData);
