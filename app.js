@@ -327,7 +327,7 @@ function sendPointList(senderID){
   for (var i = 0; i < 5; i++) {
       messageData.message.attachment.payload.elements.push({
             title: "Bar Nº " + i,
-            subtitle:"Estado: Abierto. \n Horario: 14:00 a 22:00 \n 500 personas lo recomiendan",  
+            subtitle:"Calle Falsa 1232 \n Horario: 14:00 a 22:00",  
             image_url: "https://beermaster.herokuapp.com/style/AmberLager.png" ,
             buttons: [
                       {
