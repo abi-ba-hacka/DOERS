@@ -300,9 +300,10 @@ function sendReceipt(senderID, itemPedidosList) {
   var total = 0;
   console.log("ASdasdasdsa" + itemPedidosList);
   for(var i = 0; i < itemPedidosList.length; i++)
-       {
+  {
         total += result[i].precio;
-       }
+    console.log(result[i].precio);
+  }
   //total.total_cost = total;
   console.log("dio un total de : " + total);
   var messageData = {
