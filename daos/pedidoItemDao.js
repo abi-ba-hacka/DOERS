@@ -16,6 +16,7 @@ module.exports = {
 							  });  
 					},
 		getItemPedido: function(userId, callback){
+			console.log("voy a buscar los pedidos");
 				ItemPedido.find({'userId': userId}, function(err, pedidos){
 		              if (err) return console.error(err);
 		              callback(pedidos);          
