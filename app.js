@@ -309,7 +309,7 @@ function userAddsItem(senderID, variedad) {
 function sendPointList(senderID){
    var messageData = {
         "recipient":{
-            "id":"RECIPIENT_ID"
+            "id":senderID
           }, "message": {
             "attachment": {
                 "type": "template",
