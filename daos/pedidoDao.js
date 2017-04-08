@@ -16,7 +16,7 @@ module.exports = {
 					},
 	getPedidoActivoUser: function(userId, callback){
 							console.log("llame a buscar pedidos con: " + JSON.stringify(userId));
-							Pedido.findOne({'pedidoId': userId, 'activo': "S"}, function(err, pedido){
+							Pedido.findOne({'userId': userId, 'activo': "S"}, function(err, pedido){
 					              if (err) return console.error(err);
 					              callback(pedido);          
 					        });
