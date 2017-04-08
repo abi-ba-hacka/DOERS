@@ -366,7 +366,7 @@ function askMenu(senderID, local) {
 
   messageData.message.attachment.payload.elements.push({
         title: "Amber Lager",  
-        image_url: "./style/Patagonia_AmberLager-1.png" ,
+        image_url: "/style/Patagonia_AmberLager-1.png" ,
         buttons: [{
                    type: "postback",
                    title: "Agregar Item",
