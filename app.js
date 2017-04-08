@@ -334,7 +334,6 @@ function sendReceipt(senderID, itemPedidosList) {
   }
   callSendAPI(messageData);
 }
->>>>>>> 750b4bc6b3d76aa802deac77d8483da85a8dd5df
 
 function userGetsReceipt(senderID) {
     console.log("generate receipt");
