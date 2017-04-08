@@ -2,7 +2,7 @@ var ItemPedido = require('../models/pedidoItemModel');
 
 module.exports = {
 		insertarItemPedido: function(pedido){
-							console.log("llame a grabar pedido con : " + JSON.stringify(pedido));
+							console.log("llame a grabar el item de pedido con : " + JSON.stringify(pedido));
 					    	var pedi = new ItemPedido({
 							    pedidoId: pedido.userId,                      
 							    userId: pedido.userId,
@@ -12,7 +12,13 @@ module.exports = {
 
 							  pedi.save(function(err){
 							    if ( err ) throw err;
-							    console.log("Pedido Saved Successfully");
+							    console.log("Item de Pedido Saved Successfully");
 							  });  
 					},
+		getItemPedido: function(userId, callback){
+				ItemPedido.find({'userId': userId}, function(err, pedidos){
+		              if (err) return console.error(err);
+		              callback(pedidos);          
+		        });
+		},
 }

@@ -294,6 +294,11 @@ function userStartPostback(senderID, userName){
 
   callSendAPI(messageData);
 }
+function userGetsReceipt(senderID) {
+    itemPedidoController.getItemPedido({userId : senderID}, function(resultado){
+      console.log("encontre los siguientes items pedidos " + JSON.stringify(resultado));
+    });
+}
 
 function userAddsItem(senderID, variedad, precio) {
     pedidoController.insertPedido({ userId:senderID}, function(resultado) {
@@ -448,6 +453,9 @@ function receivedPostback(messagingEvent){
             break;
             case "agregar_kune":
                 userAddsItem(senderID, "kune", "23.40");
+            break;
+            case "recibo":
+                userGetsReceipt(senderID);
             break;
           }
      }
