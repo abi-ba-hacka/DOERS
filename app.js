@@ -295,6 +295,7 @@ function userStartPostback(senderID, userName){
   callSendAPI(messageData);
 }
 function userGetsReceipt(senderID) {
+    console.log("generate receipt");
     itemPedidoController.getItemPedido({userId : senderID}, function(resultado){
       console.log("encontre los siguientes items pedidos " + JSON.stringify(resultado));
     });
