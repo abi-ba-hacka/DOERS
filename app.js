@@ -296,6 +296,7 @@ function userStartPostback(senderID, userName){
 
 function userAddsItem(senderID, variedad) {
     pedidoController.insertPedido({ userID:senderID });
+
     var messageData = {
       recipient: {
         id: senderID
@@ -304,6 +305,8 @@ function userAddsItem(senderID, variedad) {
         text: "Agrego una " + variedad + " al pedido"
       }
     };
+    
+    callSendAPI(messageData);
 }
 
 function sendPointList(senderID){
