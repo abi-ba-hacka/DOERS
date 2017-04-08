@@ -301,8 +301,8 @@ function sendReceipt(senderID, itemPedidosList) {
   console.log("ASdasdasdsa" + itemPedidosList);
   for(var i = 0; i < itemPedidosList.length; i++)
   {
-        total += result[i].precio;
-    console.log(result[i].precio);
+        total += itemPedidosList[i].precio;
+    console.log(itemPedidosList[i].precio);
   }
   //total.total_cost = total;
   console.log("dio un total de : " + total);
