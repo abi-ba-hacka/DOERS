@@ -400,6 +400,9 @@ function analyzeMessage(senderID, messageText){
       case "menu":
         askMenu(senderID, 2);
       break;
+      case "recibo":
+        userGetsReceipt(senderID);
+      break;
       case "point":
         sendPointList(senderID);
       break;
