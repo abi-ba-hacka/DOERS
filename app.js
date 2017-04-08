@@ -293,6 +293,15 @@ function userStartPostback(senderID, userName){
   callSendAPI(messageData);
 }
 
+function userAddsItem(senderID, variedad) {
+    var messageData = {
+      recipient: {
+        id: senderID
+      },
+      message: {
+        text: "Agrego una " + variedad + " al pedido"
+      }
+    };
 
 function sendPointList(senderID){
    var messageData = {
@@ -408,8 +417,6 @@ function sendPointList(senderID){
    callSendAPI(messageData); 
 }
 
-
-
 function callSendAPI(messageData) {
   request({
     uri: 'https://graph.facebook.com/v2.6/me/messages',
@@ -494,7 +501,16 @@ function receivedPostback(messagingEvent){
          switch(payload){
             case "USER_START":
                 userStartPostback(senderID, name);
-              break;
+            break;
+            case "agregar_amber":
+                userAddsItem(senderID, "amber");
+            break;
+            case "agregar_bohemian":
+                userAddsItem(senderID, "bohemian");
+            break;
+            case "agregar_kune":
+                userAddsItem(senderID, "kune");
+            break;
           }
      }
 }
