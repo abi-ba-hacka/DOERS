@@ -56,7 +56,7 @@ app.get('/Help', function (req, res) {
 
 // Server frontpage
 app.get('/', function (req, res) {
-    res.send('InteractiBA Bot! Hello World');
+    res.send('Welcome to the Beer Master! ');
 });
 
 // App Secret can be retrieved from the App Dashboard
