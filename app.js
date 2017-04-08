@@ -392,7 +392,7 @@ function askMenu(senderID, local) {
 
   messageData.message.attachment.payload.elements.push({
         title: "Amber Lager",  
-        image_url: "/style/Patagonia_AmberLager-1.png" ,
+        image_url: "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-B-Pilsener-1000x1467_1024x1024.png?v=1465834640" ,
         buttons: [{
                    type: "postback",
                    title: "Agregar Item",
