@@ -327,14 +327,9 @@ function sendPointList(senderID){
   for (var i = 0; i < 5; i++) {
       messageData.message.attachment.payload.elements.push({
             title: "Bar Nº " + i,
-            subtitle:"Estado: Abierto. \n Horario de atención: 14:00 a 22:00",  
+            subtitle:"Estado: Abierto. \n Horario de atención: 14:00 a 22:00 \n 500 personas lo recomiendan",  
             image_url: "https://beermaster.herokuapp.com/style/AmberLager.png" ,
             buttons: [
-                      {
-                       type: "postback",
-                       title: "Ver mas",
-                       payload: "ver_mas"
-                      },
                       {
                         "type":"element_share"
                       },
@@ -342,7 +337,12 @@ function sendPointList(senderID){
                           "type":"phone_number",
                           "title":"Llamar",
                           "payload":"+1524549287"
-                       }
+                       },
+                       {
+                       type: "postback",
+                       title: "Ver mas",
+                       payload: "ver_mas"
+                      }
                       ]
       });
   }
