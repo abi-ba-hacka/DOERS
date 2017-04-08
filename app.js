@@ -370,7 +370,7 @@ function askMenu(senderID, local) {
         buttons: [{
                    type: "postback",
                    title: "Agregar Item",
-                   payload: "item_add"
+                   payload: "agregar_amber"
                   }]
   });
 
@@ -380,7 +380,17 @@ function askMenu(senderID, local) {
         buttons: [{
                    type: "postback",
                    title: "Agregar Item",
-                   payload: "item_add"
+                   payload: "agregar_bohemian"
+                  }]
+  });
+
+  messageData.message.attachment.payload.elements.push({
+        title: "Patagonia Küné",  
+        image_url: "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-Kune-1000x1467_987808b4-187e-4a71-a7f3-fd05793467c7_1024x1024.png?v=1465834661" ,
+        buttons: [{
+                   type: "postback",
+                   title: "Agregar Item",
+                   payload: "agregar_kune"
                   }]
   });
 
