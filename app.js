@@ -217,9 +217,7 @@ function receivedMessage(event) {
         shareLocation(senderID, "Para buscar cervezas Patagonia cerca necesito conocer tu ubicación, puedes escribirla o simplemente oprimir en 'Enviar ubicación.'");
       break;
     }
-    
-
-
+  
     return;
   }
 
@@ -294,6 +292,8 @@ function userStartPostback(senderID, userName){
 
   callSendAPI(messageData);
 }
+
+
 function userGetsReceipt(senderID) {
     console.log("generate receipt");
     var promise = itemPedidoController.getItemPedido(senderID);
