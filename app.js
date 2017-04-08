@@ -272,12 +272,12 @@ function userStartPostback(senderID, userName){
         quick_replies:[
           {
             content_type:"text",
-            title:"Buscar puntos Patagonia.",
+            title:"Puntos Patagonia",
             payload:"SEARCH_PATAGONIA_POINTS"
           },
           {
             content_type:"text",
-            title:"Buscar cervezas Patagoni",
+            title:"Cervezas Patagonia",
             payload:"SEARCH_PATAGONIA_BEERS"
           }
         ]
