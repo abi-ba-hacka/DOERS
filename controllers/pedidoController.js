@@ -15,6 +15,9 @@ module.exports = {
 									console.log("como no encontre el pedido, lo grabo");
 									Pedido.insertPedido(pedidoId);
 								}
+
+								return pedidoId;
 							});
+
 						},
 }
