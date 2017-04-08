@@ -3,7 +3,7 @@ var request = require('request');
 config = require('config');
 
 module.exports = {
-	insertPedido: function(pedidoId){
+	insertPedido: function(pedidoId, callback){
 							
 							console.log("Me traigo los pedidos con : " + JSON.stringify(pedidoId))
 							Pedido.getPedidoActivoUser(pedidoId.userId, function(pedido){
@@ -16,7 +16,7 @@ module.exports = {
 									Pedido.insertPedido(pedidoId);
 								}
 
-								return pedidoId;
+								callback(pedidoId);
 							});
 
 						},

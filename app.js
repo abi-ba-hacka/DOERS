@@ -295,18 +295,19 @@ function userStartPostback(senderID, userName){
 }
 
 function userAddsItem(senderID, variedad) {
-    var resultado = pedidoController.insertPedido({ userId:senderID});
-    console.log("obtuve el siguiente resultado de la insert: " + resultado);
-    var messageData = {
-      recipient: {
-        id: senderID
-      },
-      message: {
-        text: "Agrego una " + variedad + " al pedido"
-      }
-    };
-    
-    callSendAPI(messageData);
+    pedidoController.insertPedido({ userId:senderID}, function(resultado) {
+      console.log("obtuve el siguiente resultado de la insert: " + resultado);
+      var messageData = {
+        recipient: {
+          id: senderID
+        },
+        message: {
+          text: "Agrego una " + variedad + " al pedido"
+        }
+      };
+      
+      callSendAPI(messageData);
+    });
 }
 
 function sendPointList(senderID){  
