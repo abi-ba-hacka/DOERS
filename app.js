@@ -299,6 +299,10 @@ function userGetsReceipt(senderID) {
     var promise = itemPedidoController.getItemPedido(senderID);
     promise.then(function(result){
        console.log("encontre los siguientes items pedidos " + result);
+       foreach(var item in result)
+       {
+          console.log("Adquiriste una " + item.variedad + " a $" + item.precio);
+       }
     });
 }
 
