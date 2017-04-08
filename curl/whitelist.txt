@@ -13,3 +13,12 @@ curl -X DELETE -H "Content-Type: application/json" -d '{
     "whitelisted_domains"
   ]
 }' "https://graph.facebook.com/v2.6/me/messenger_profile?access_token=PAGE_ACCESS_TOKEN"
+
+
+
+https://peterssendreceiveapp.ngrok.io
+
+
+curl -X POST -H "Content-Type: application/json" -d '{"setting_type" : "domain_whitelisting","whitelisted_domains" : [
+"https://peterssendreceiveapp.ngrok.io"
+],"domain_action_type": "add"}' "https://graph.facebook.com/v2.6/me/thread_settings?access_token=EAAF2MOspCrUBAKORIu78cdVBcdvsvJKsFzFHHloZBy9CqDX6hqvSYZA2clo6h6ZCZBSoFQ5wOd2ygOnBuKf5VkoY3IemzAOtWqkeMpkFEACGuIt5yqICN51qZCO4yeZCUhjXsRcUlTG54ZAhLJROZCx8ZAouhshZAr7qknb6Rx8iGqMgZDZD"
