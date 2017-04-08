@@ -336,7 +336,12 @@ function sendPointList(senderID){
     }
   };  
 
+
+
+  var postbackObject = { payload: "VIEW_MORE", barId: "" };
+
   for (var i = 0; i < 10; i++) {
+      postbackObject.barId = i;
       messageData.message.attachment.payload.elements.push({
             title: "Bar Nº " + i,
             subtitle:"Calle Falsa 1232 \n Horario: 14:00 a 22:00",  
@@ -353,7 +358,7 @@ function sendPointList(senderID){
                        {
                        type: "postback",
                        title: "Ver mas",
-                       payload: "ver_mas"
+                       payload:  JSON.stringify(postbackObject);
                       }
                       ]
       });
@@ -427,11 +432,8 @@ function analyzeMessage(senderID, messageText){
 
 
 function receivedPostback(messagingEvent){
-    var payload = messagingEvent.postback.payload;
+    var postBackObject = JSON.parse(messagingEvent.postback.payload);
     var senderID = messagingEvent.sender.id;
-
-    console.log("POSTBACK! " + payload);
-    console.log(JSON.stringify(messagingEvent));
 
      userController.getUser(senderID, function(user){
             if(!user){
@@ -444,11 +446,16 @@ function receivedPostback(messagingEvent){
             }
     });
 
+
+
     function analizePayloads(name){
-         switch(payload){
+         switch(postBackObject.payload){
             case "USER_START":
                 userStartPostback(senderID, name);
             break;
+            case "VIEW_MORE": 
+              sendTextMessage(senderID, "Ver mas del bar " + postBackObject.barId);
+            ;break;
             case "agregar_amber":
                 userAddsItem(senderID, "amber", "35");
             break;
