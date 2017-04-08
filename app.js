@@ -279,7 +279,7 @@ function userStartPostback(senderID, userName){
         quick_replies:[
           {
             content_type:"text",
-            title:"Puntos Patagonia",
+            title:"Bares Patagonia",
             payload:"SEARCH_PATAGONIA_POINTS"
           },
           {
