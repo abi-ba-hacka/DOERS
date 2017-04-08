@@ -315,7 +315,7 @@ function sendReceipt(senderID, itemPedidosList) {
           order_nombre: "12314123",
           currency: "ARS",
           payment_method: "VISA 5494",
-          summary: total;
+          summary: total,
           elements: []
         }
       }
