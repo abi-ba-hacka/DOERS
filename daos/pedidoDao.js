@@ -1,6 +1,4 @@
 var Pedido = require('../models/pedidoModel');
-var request = require('request');
-config = require('config');
 
 module.exports = {
 	insertPedido: function(pedido){
