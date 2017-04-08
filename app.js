@@ -296,6 +296,7 @@ function userStartPostback(senderID, userName){
 
 function userAddsItem(senderID, variedad) {
     var resultado = pedidoController.insertPedido({ userId:senderID});
+    console.log("obtuve el siguiente resultado de la insert: " + resultado);
     var messageData = {
       recipient: {
         id: senderID
