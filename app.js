@@ -331,11 +331,6 @@ function sendPointList(senderID){
             image_url: "https://beermaster.herokuapp.com/style/AmberLager.png" ,
             buttons: [
                       {
-                          "type":"postback",
-                          "title":"Como llegar",
-                          "payload":"COMO_LLEGAR"
-                        },
-                      {
                        type: "postback",
                        title: "Ver mas",
                        payload: "ver_mas"
