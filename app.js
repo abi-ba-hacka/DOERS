@@ -322,6 +322,10 @@ function analyzeMessage(senderID, messageText){
       case "location":
         shareLocation(senderID, "Para buscar cervezas cerca necesitamos conocer tu ubicación, puedes pasarnos una direccion o simplemente oprimir en 'Enviar ubicación.'");
       break;
+      case "menu":
+        askMenu(senderID, 2);
+      break;
+
       default:
         var botRequest = botApp.textRequest(messageText, botOptions);
           botRequest.on('response', function(response) {
@@ -368,6 +372,56 @@ function receivedPostback(messagingEvent){
      }
 }
 
+function askMenu(senderID, local) {
+  sendTextMessage(senderID, "Te doy estas opciones para el punto Patagonia elegido!");
+  
+  var messageData = {
+    recipient: {
+      id: senderID
+    },
+    message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "generic",
+          elements: []
+        }
+      }
+    }
+  };  
+
+  messageData.message.attachment.payload.elements.push({
+        title: "Amber Lager",  
+        image_url: "./style/Patagonia_AmberLager-1.png" ,
+        buttons: [{
+                   type: "postback",
+                   title: "Agregar Item",
+                   payload: "agregar_amber"
+                  }]
+  });
+
+  messageData.message.attachment.payload.elements.push({
+        title: "Bohemian Pilsener",  
+        image_url: "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-B-Pilsener-1000x1467_1024x1024.png?v=1465834640" ,
+        buttons: [{
+                   type: "postback",
+                   title: "Agregar Item",
+                   payload: "agregar_bohemian"
+                  }]
+  });
+
+  messageData.message.attachment.payload.elements.push({
+        title: "Patagonia Küné",  
+        image_url: "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-Kune-1000x1467_987808b4-187e-4a71-a7f3-fd05793467c7_1024x1024.png?v=1465834661" ,
+        buttons: [{
+                   type: "postback",
+                   title: "Agregar Item",
+                   payload: "agregar_kune"
+                  }]
+  });
+
+  callSendAPI(messageData);
+}
 
 // Start server
 // Webhooks must be available via SSL with a certificate signed by a valid 
