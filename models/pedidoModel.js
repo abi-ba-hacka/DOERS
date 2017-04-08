@@ -10,7 +10,7 @@ var PedidoSchema = new Schema({
     activo: { type: String},   
 }, { collection : 'Pedido' })
 
-var Pedido = mongoose.model('Pedido', UserSchema);
+var Pedido = mongoose.model('Pedido', PedidoSchema);
 
 
 module.exports = Pedido;
