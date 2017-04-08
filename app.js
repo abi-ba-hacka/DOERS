@@ -293,16 +293,57 @@ function userStartPostback(senderID, userName){
   callSendAPI(messageData);
 }
 
+function sendReceipt(senderID, itemPedidosList) {
+  console.log("generando el recibo pa");
+  var total = {total_cost: 0};
+
+  for(var i = 0; i < itemPedidosList.length; i++)
+  {
+        total.total_cost += parseFloat(itemPedidosList[i].precio);
+  }
+  
+  var messageData = {
+    recipient: {
+      id: senderID
+    },
+    message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "receipt",
+          recipient_name: "Federico Pérez",
+          order_number: "12314123",
+          currency: "ARS",
+          payment_method: "VISA 5494",
+          summary: total,
+          elements: []
+        }
+      }
+    }
+  };  
+
+  for(var i = 0; i < itemPedidosList.length; i++)
+  {
+     messageData.message.attachment.payload.elements.push({
+        title: itemPedidosList[i].variedad,
+        price: itemPedidosList[i].precio
+     });
+  }
+  callSendAPI(messageData);
+}
+>>>>>>> 750b4bc6b3d76aa802deac77d8483da85a8dd5df
 
 function userGetsReceipt(senderID) {
     console.log("generate receipt");
     var promise = itemPedidoController.getItemPedido(senderID);
     promise.then(function(result){
        console.log("encontre los siguientes items pedidos " + result);
-       foreach(var item in result)
+       for(var i = 0; i < result.length; i++)
        {
-          console.log("Adquiriste una " + item.variedad + " a $" + item.precio);
+          console.log("Adquiriste una " + result[i].variedad + " a $" + result[i].precio);
        }
+
+       sendReceipt(senderID, result);
     });
 }
 
@@ -486,8 +527,8 @@ function askMenu(senderID, local) {
     }
   };  
 
-  postbackObject.variedad = "amber";
-  postbackObject.precio = "35";
+  postbackObject.variedad = "Amber Lager";
+  postbackObject.precio = "68";
   messageData.message.attachment.payload.elements.push({
         title: "Amber Lager",  
         image_url: "https://beermaster.herokuapp.com/style/AmberLager.png" ,
@@ -498,8 +539,8 @@ function askMenu(senderID, local) {
                   }]
   });
 
-  postbackObject.variedad = "bohemian";
-  postbackObject.precio = "37";
+  postbackObject.variedad = "Bohemian Pilsener";
+  postbackObject.precio = "68";
   messageData.message.attachment.payload.elements.push({
         title: "Bohemian Pilsener",  
         image_url: "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-B-Pilsener-1000x1467_1024x1024.png?v=1465834640" ,
@@ -509,8 +550,8 @@ function askMenu(senderID, local) {
                    payload: JSON.stringify(postbackObject)
                   }]
   });
-  postbackObject.variedad = "kune";
-  postbackObject.precio = "40";
+  postbackObject.variedad = "Patagonia Küné";
+  postbackObject.precio = "58";
   messageData.message.attachment.payload.elements.push({
         title: "Patagonia Küné",  
         image_url: "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-Kune-1000x1467_987808b4-187e-4a71-a7f3-fd05793467c7_1024x1024.png?v=1465834661" ,
