@@ -315,14 +315,14 @@ function analyzeMessage(senderID, messageText){
 
 
 function receivedPostback(messagingEvent){
-    var postback = messagingEvent.postback;
+    var payload = messagingEvent.postback.payload;
     var senderID = messagingEvent.sender.id;
 
-    console.log("POSTBACK! " + postback);
+    console.log("POSTBACK! " + payload);
     console.log(JSON.stringify(messagingEvent));
 
     
-    switch(postback){
+    switch(payload){
       case "USER_START": 
           sendTextMessage(senderID, "Postaback starter");
         break;
