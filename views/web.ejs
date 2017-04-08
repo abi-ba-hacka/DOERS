@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>InteractiBA</title>
+    <style type="text/css">
+      html, body { height: 100%; margin: 0; padding: 0; }
+      #map { height: 100%; }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        var directionsService = new google.maps.DirectionsService;
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.6128886, lng: -58.463},
+          zoom: 13,
+          disableDefaultUI:true,
+          zoomControl:true
+        });
+        directionsDisplay.setMap(map);
+        calculateAndDisplayRoute(directionsService, directionsDisplay, <%- JSON.stringify(address1) %> , <%- JSON.stringify(address2) %>);
+        
+      }
+
+      function calculateAndDisplayRoute(directionsService, directionsDisplay, address,address2) {
+        var selectedMode = "TRANSIT";
+        directionsService.route({
+          origin: address,
+          destination: address2,  
+          travelMode: google.maps.TravelMode[selectedMode]
+        }, function(response, status) {
+          if (status == 'OK') {
+            directionsDisplay.setDirections(response);
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDiKogP-EOPQU0oec89p5EIZwIJFi4R6Lc&callback=initMap">
+    </script>
+  </body>
+</html>
+

@@ -1,0 +1,5 @@
+-Boton Comenzar:
+/* Referencia: https://developers.facebook.com/docs/messenger-platform/thread-settings/get-started-button */
+curl -X POST -H "Content-Type: application/json" -d '{ 
+"setting_type":"call_to_actions","thread_state":"new_thread","call_to_actions":[
+{"payload":"USER_START"}]}' "https://graph.facebook.com/v2.6/me/thread_settings?access_token=EAADTytZCuUqsBAAVGCYoTEik3YB8ZBGgdTCpi1w1VKlIaKlmyZCLu35AEuzVCnkfYdO12pQkY2d37E7ahdh2rU679bOKiNjZA1KRZCVk32N7xF7o0OZBbmpbJXAphphFkVTax6SzrLZALgaGbjQg8Iq6ZALFHuGcZBgZBZCF0qE1pRCxgZDZD"    

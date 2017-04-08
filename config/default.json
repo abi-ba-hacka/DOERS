@@ -1,0 +1,10 @@
+{
+    "appSecret": "5bcdfb0b15c11cd203c1caaa693635d2",
+    "pageAccessToken": "EAAF2MOspCrUBAKORIu78cdVBcdvsvJKsFzFHHloZBy9CqDX6hqvSYZA2clo6h6ZCZBSoFQ5wOd2ygOnBuKf5VkoY3IemzAOtWqkeMpkFEACGuIt5yqICN51qZCO4yeZCUhjXsRcUlTG54ZAhLJROZCx8ZAouhshZAr7qknb6Rx8iGqMgZDZD",
+    "validationToken": "el_validation_tokken",
+    "develop_access_token_apiai":"4a1e33d869864d1d9b97a1e73d25b86b",
+    "client_access_token_apiai":"6af928a803e343c18c6b66ab65834926",
+    "serverURL": "https://interactibabot.herokuapp.com/",
+    "connectionString": "mongodb://Nicolas:doers@ds161245.mlab.com:61245/elmaestrocervecero",
+    "googleMapsClient": "AIzaSyDiKogP-EOPQU0oec89p5EIZwIJFi4R6Lc"
+}

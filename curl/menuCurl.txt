@@ -1,0 +1,23 @@
+curl -X POST -H "Content-Type: application/json" -d '{
+  "setting_type" : "call_to_actions",
+  "thread_state" : "existing_thread",
+  "call_to_actions":[
+    {
+      "type":"postback",
+      "title":"Subscripción Servicios",
+      "payload":"SUBSCRIPCION_SERVICIOS"
+    },
+    {
+      "type":"web_url",
+      "title":"Ayuda",
+      "url":"http://www.google.com.ar",
+      "webview_height_ratio": "full"
+    },
+    {
+      "type":"web_url",
+      "title":"Sobre InteractiBA",
+      "url":"http://www.google.com.ar",
+      "webview_height_ratio": "full"
+    }
+  ]
+}' "https://graph.facebook.com/v2.6/me/thread_settings?access_token=EAADTytZCuUqsBAAVGCYoTEik3YB8ZBGgdTCpi1w1VKlIaKlmyZCLu35AEuzVCnkfYdO12pQkY2d37E7ahdh2rU679bOKiNjZA1KRZCVk32N7xF7o0OZBbmpbJXAphphFkVTax6SzrLZALgaGbjQg8Iq6ZALFHuGcZBgZBZCF0qE1pRCxgZDZD"    

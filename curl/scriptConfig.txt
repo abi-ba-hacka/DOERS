@@ -1,0 +1,27 @@
+-Texto de saludo.
+/* Referencia https://developers.facebook.com/docs/messenger-platform/thread-settings/greeting-text */
+  Agregar: 
+  curl -X POST -H "Content-Type: application/json" -d '{
+  "setting_type":"greeting",
+  "greeting":{
+    "text":"Timeless apparel for the masses."
+  }
+}' "https://graph.facebook.com/v2.6/me/thread_settings?access_token=PAGE_ACCESS_TOKEN"    
+
+Eliminar:
+curl -X DELETE -H "Content-Type: application/json" -d '{
+  "setting_type":"greeting"
+}' "https://graph.facebook.com/v2.6/me/thread_settings?access_token=PAGE_ACCESS_TOKEN"   
+
+Script Actual: 
+curl -X POST -H "Content-Type: application/json" -d '{"setting_type":"greeting","greeting":{ "text":"Hola {{user_first_name}}, interactiBA te ayudara a encontrar todo lo que necesitas en la ciudad. ¡Pregunta lo que quieras!"}}' "https://graph.facebook.com/v2.6/me/thread_settings?access_token=EAADTytZCuUqsBAC4Y0ejN1lY2bvkqfK7h6KZA1TZCTCqqCIPW3uLthVb8IAAVdTo0rtCqsjiZC771260oKPh2FuJhOT11zmtbwQN1Kvd1sHmVFbGyr7rAmcRWsCj2r3PYniZA2tg9xX8ZBuOlJhrRwWCyF7Iecj0aMJRPEu0ZCP0AZDZD"    
+
+-Subscripcion Postback webhook! : 
+curl -X POST "https://graph.facebook.com/v2.6/me/subscribed_apps?access_token=EAADTytZCuUqsBAC4Y0ejN1lY2bvkqfK7h6KZA1TZCTCqqCIPW3uLthVb8IAAVdTo0rtCqsjiZC771260oKPh2FuJhOT11zmtbwQN1Kvd1sHmVFbGyr7rAmcRWsCj2r3PYniZA2tg9xX8ZBuOlJhrRwWCyF7Iecj0aMJRPEu0ZCP0AZDZD"    
+  
+
+-Dominios En lista: 
+/* https://developers.facebook.com/docs/messenger-platform/thread-settings/domain-whitelisting */
+curl -X POST -H "Content-Type: application/json" -d '{"setting_type" : "domain_whitelisting","whitelisted_domains" : ["https://interactiba2.azurewebsites.net","https://maps.googleapis.com"],"domain_action_type": "add"}' "https://graph.facebook.com/v2.6/me/thread_settings?access_token=EAADTytZCuUqsBAC4Y0ejN1lY2bvkqfK7h6KZA1TZCTCqqCIPW3uLthVb8IAAVdTo0rtCqsjiZC771260oKPh2FuJhOT11zmtbwQN1Kvd1sHmVFbGyr7rAmcRWsCj2r3PYniZA2tg9xX8ZBuOlJhrRwWCyF7Iecj0aMJRPEu0ZCP0AZDZD"
+
+

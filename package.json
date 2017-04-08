@@ -1,0 +1,31 @@
+{
+  "name": "El Maestro Cervecer",
+  "version": "1.0.0",
+  "description": "El Maestro Cervecero, una nueva experiencia para encontrar tu lugar.. tu cerveza perfecta.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "lint": "jshint --exclude node_modules .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://NicolasYazky@bitbucket.org/fedeaperez/beermasta.git"
+  },
+  "author": "Yazky Christian Nicolas",
+  "license": "ISC",
+  "dependencies": {
+    "@google/maps": "^0.3.1",
+    "apiai": "^4.0.1",
+    "body-parser": "",
+    "config": "",
+    "ejs": "",
+    "express": "",
+    "mongoose": "^4.7.1",
+    "request": ""
+  },
+  "engines": {
+    "node": "~4.2.3"
+  },
+  "homepage": "https://NicolasYazky@bitbucket.org/fedeaperez/beermasta.git#readme"
+}
