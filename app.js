@@ -295,7 +295,7 @@ function userStartPostback(senderID, userName){
 }
 
 function userAddsItem(senderID, variedad) {
-    pedidoController.insertPedido({ userID:senderID });
+    pedidoController.insertPedido({ userId:senderID });
     var messageData = {
       recipient: {
         id: senderID
@@ -306,118 +306,52 @@ function userAddsItem(senderID, variedad) {
     };
 }
 
-function sendPointList(senderID){
-   var messageData = {
-        "recipient":{
-            "id":senderID
-          }, "message": {
-            "attachment": {
-                "type": "template",
-                "payload": {
-                    "template_type": "list",
-                    "elements": [
-                        {
-                            "title": "Classic T-Shirt Collection",
-                            "image_url": "https://peterssendreceiveapp.ngrok.io/img/collection.png",
-                            "subtitle": "See all our colors",
-                            "default_action": {
-                                "type": "web_url",
-                                "url": "https://peterssendreceiveapp.ngrok.io/shop_collection",
-                                "messenger_extensions": true,
-                                "webview_height_ratio": "tall",
-                                "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
-                            },
-                            "buttons": [
-                                {
-                                    "title": "View",
-                                    "type": "web_url",
-                                    "url": "https://peterssendreceiveapp.ngrok.io/collection",
-                                    "messenger_extensions": true,
-                                    "webview_height_ratio": "tall",
-                                    "fallback_url": "https://peterssendreceiveapp.ngrok.io/"                        
-                                }
-                            ]
-                        },
-                        {
-                            "title": "Classic White T-Shirt",
-                            "image_url": "https://peterssendreceiveapp.ngrok.io/img/white-t-shirt.png",
-                            "subtitle": "100% Cotton, 200% Comfortable",
-                            "default_action": {
-                                "type": "web_url",
-                                "url": "https://peterssendreceiveapp.ngrok.io/view?item=100",
-                                "messenger_extensions": true,
-                                "webview_height_ratio": "tall",
-                                "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
-                            },
-                            "buttons": [
-                                {
-                                    "title": "Shop Now",
-                                    "type": "web_url",
-                                    "url": "https://peterssendreceiveapp.ngrok.io/shop?item=100",
-                                    "messenger_extensions": true,
-                                    "webview_height_ratio": "tall",
-                                    "fallback_url": "https://peterssendreceiveapp.ngrok.io/"                        
-                                }
-                            ]                
-                        },
-                        {
-                            "title": "Classic Blue T-Shirt",
-                            "image_url": "https://peterssendreceiveapp.ngrok.io/img/blue-t-shirt.png",
-                            "subtitle": "100% Cotton, 200% Comfortable",
-                            "default_action": {
-                                "type": "web_url",
-                                "url": "https://peterssendreceiveapp.ngrok.io/view?item=101",
-                                "messenger_extensions": true,
-                                "webview_height_ratio": "tall",
-                                "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
-                            },
-                            "buttons": [
-                                {
-                                    "title": "Shop Now",
-                                    "type": "web_url",
-                                    "url": "https://peterssendreceiveapp.ngrok.io/shop?item=101",
-                                    "messenger_extensions": true,
-                                    "webview_height_ratio": "tall",
-                                    "fallback_url": "https://peterssendreceiveapp.ngrok.io/"                        
-                                }
-                            ]                
-                        },
-                        {
-                            "title": "Classic Black T-Shirt",
-                            "image_url": "https://peterssendreceiveapp.ngrok.io/img/black-t-shirt.png",
-                            "subtitle": "100% Cotton, 200% Comfortable",
-                            "default_action": {
-                                "type": "web_url",
-                                "url": "https://peterssendreceiveapp.ngrok.io/view?item=102",
-                                "messenger_extensions": true,
-                                "webview_height_ratio": "tall",
-                                "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
-                            },
-                            "buttons": [
-                                {
-                                    "title": "Shop Now",
-                                    "type": "web_url",
-                                    "url": "https://peterssendreceiveapp.ngrok.io/shop?item=102",
-                                    "messenger_extensions": true,
-                                    "webview_height_ratio": "tall",
-                                    "fallback_url": "https://peterssendreceiveapp.ngrok.io/"                        
-                                }
-                            ]                
-                        }
-                    ],
-                     "buttons": [
-                        {
-                            "title": "View More",
-                            "type": "postback",
-                            "payload": "payload"                        
-                        }
-                    ]  
-                }
-            }
+function sendPointList(senderID){  
+  var messageData = {
+    recipient: {
+      id: senderID
+    },
+    message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "generic",
+          elements: []
         }
-     }//data
+      }
+    }
+  };  
 
-   callSendAPI(messageData);  
+  for (var i = 0; i < 5; i++) {
+      messageData.message.attachment.payload.elements.push({
+            title: "Bar Nº " + i,
+            subtitle:"Estado: Abierto. \n Horario de atención: 14:00 a 22:00",  
+            image_url: "https://beermaster.herokuapp.com/style/AmberLager.png" ,
+            buttons: [
+                      {
+                          "type":"postback",
+                          "title":"Como llegar",
+                          "payload":"COMO_LLEGAR"
+                        },
+                      {
+                       type: "postback",
+                       title: "Ver mas",
+                       payload: "ver_mas"
+                      },
+                      {
+                        "type":"element_share"
+                      },
+                      {
+                          "type":"phone_number",
+                          "title":"Llamar",
+                          "payload":"+1524549287"
+                       }
+                      ]
+      });
+  }
+  
+
+  callSendAPI(messageData); 
 }
 
 function callSendAPI(messageData) {
@@ -459,7 +393,7 @@ function analyzeMessage(senderID, messageText){
         askMenu(senderID, 2);
       break;
       case "point":
-      sendPointList(senderID);
+        sendPointList(senderID);
       break;
       default:
         var botRequest = botApp.textRequest(messageText, botOptions);
