@@ -295,11 +295,11 @@ function userStartPostback(senderID, userName){
   callSendAPI(messageData);
 }
 
-function userAddsItem(senderID, variedad) {
+function userAddsItem(senderID, variedad, precio) {
     pedidoController.insertPedido({ userId:senderID}, function(resultado) {
       console.log("obtuve el siguiente resultado de la insert: " + resultado);
 
-      itemPedidoController.insertarItemPedido({ userId: resultado.userId,  variedad: variedad});
+      itemPedidoController.insertarItemPedido({ userId: resultado.userId,  variedad: variedad, precio: precio});
 
       var messageData = {
         recipient: {
@@ -441,13 +441,13 @@ function receivedPostback(messagingEvent){
                 userStartPostback(senderID, name);
             break;
             case "agregar_amber":
-                userAddsItem(senderID, "amber");
+                userAddsItem(senderID, "amber", "35");
             break;
             case "agregar_bohemian":
-                userAddsItem(senderID, "bohemian");
+                userAddsItem(senderID, "bohemian", "45");
             break;
             case "agregar_kune":
-                userAddsItem(senderID, "kune");
+                userAddsItem(senderID, "kune", "23.40");
             break;
           }
      }

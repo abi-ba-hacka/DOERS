@@ -6,7 +6,8 @@ module.exports = {
 					    	var pedi = new ItemPedido({
 							    pedidoId: pedido.userId,                      
 							    userId: pedido.userId,
-							    variedad: pedido.variedad 
+							    variedad: pedido.variedad,
+							    precio: pedido.precio 
 							  });
 
 							  pedi.save(function(err){
