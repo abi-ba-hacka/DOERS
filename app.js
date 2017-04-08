@@ -9,6 +9,7 @@ const
   apiai = require('apiai'),
   userController = require('./daos/userDao'),
   pedidoController = require('./controllers/pedidoController'),
+  itemPedidoController = require('./daous/pedidoItemDao');
   googleMapController = require('./controllers/googleMapController');
 
 var app = express();
@@ -297,6 +298,9 @@ function userStartPostback(senderID, userName){
 function userAddsItem(senderID, variedad) {
     pedidoController.insertPedido({ userId:senderID}, function(resultado) {
       console.log("obtuve el siguiente resultado de la insert: " + resultado);
+
+      itemPedidoController.insertarItemPedido({ userId: resultado.userId,  variedad: variedad});
+
       var messageData = {
         recipient: {
           id: senderID
