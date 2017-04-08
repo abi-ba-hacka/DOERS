@@ -291,12 +291,18 @@ function analyzeMessage(senderID, messageText){
   var botRequest = botApp.textRequest(messageText, botOptions);
   var botResponse;
 
+    switch(messageText){
+      case "location":
+        shareLocation(senderID, "Para buscar cervezas cerca necesitamos conocer tu ubicación, puedes pasarnos una direccion o simplemente oprimir en 'Enviar ubicación.'");
+      ;break;
+    }
+
 
     botRequest.on('response', function(response) {
         console.log("BOT RESPONSE:");
         botResponse = JSON.stringify(response); 
         console.log(botResponse);
-        sendTextMessage(senderID, botResponse);
+        //sendTextMessage(senderID, botResponse);
     });
 
     botRequest.on('error', function(error) {
