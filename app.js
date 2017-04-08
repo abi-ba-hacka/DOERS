@@ -314,7 +314,7 @@ function sendReceipt(senderID, itemPedidosList) {
         payload: {
           template_type: "receipt",
           recipient_name: "Federico Pérez",
-          order_nombre: "12314123",
+          order_number: "12314123",
           currency: "ARS",
           payment_method: "VISA 5494",
           summary: total,
