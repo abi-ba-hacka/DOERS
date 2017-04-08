@@ -289,7 +289,6 @@ function callSendAPI(messageData) {
 // Api.ai 
 
 function analyzeMessage(senderID, messageText){
-  var botRequest = botApp.textRequest(messageText, botOptions);
   var botResponse;
 
     switch(messageText){
@@ -297,22 +296,20 @@ function analyzeMessage(senderID, messageText){
         shareLocation(senderID, "Para buscar cervezas cerca necesitamos conocer tu ubicación, puedes pasarnos una direccion o simplemente oprimir en 'Enviar ubicación.'");
       break;
       default:
-        sendTextMessage(senderID, "You said " + messageText);
+        var botRequest = botApp.textRequest(messageText, botOptions);
+          botRequest.on('response', function(response) {
+            console.log("BOT RESPONSE:");
+            botResponse = JSON.stringify(response); 
+            console.log(botResponse);
+            sendTextMessage(senderID, response.result.fulfillment.speech);
+        });
+
+        botRequest.on('error', function(error) {
+            console.log(error);
+        });
+
+        botRequest.end();
     }
-
-
-    botRequest.on('response', function(response) {
-        console.log("BOT RESPONSE:");
-        botResponse = JSON.stringify(response); 
-        console.log(botResponse);
-        //sendTextMessage(senderID, botResponse);
-    });
-
-    botRequest.on('error', function(error) {
-        console.log(error);
-    });
-
-    botRequest.end();
 }
 
 
