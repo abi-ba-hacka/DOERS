@@ -3,12 +3,15 @@ var request = require('request');
 config = require('config');
 
 module.exports = {
-	insertPedido: function(pedido){
-							console.log("llame a grabar pedido con : " + JSON.stringify(pedido));
-							Pedido.insertPedido(pedido);
-							console.log("Me traigo los pedidos con : " + JSON.stringify(pedido))
-							Pedido.getPedidoActivoUser(pedido.userId, function(pedidoRes){
-								console.log(pedidoRes);
+	insertPedido: function(pedidoId){
+							console.log("llame a grabar pedido con : " + JSON.stringify(pedidoId));
+							Pedido.insertPedido(pedidoId);
+							console.log("Me traigo los pedidos con : " + JSON.stringify(pedidoId))
+							Pedido.getPedidoActivoUser(pedidoId.userId, function(pedido){
+								if(!pedido) {
+									console.log(pedido);	
+								}
+								else {}
 							});
 						},
 }
