@@ -17,7 +17,7 @@ app.set('view engine', 'ejs');
 
 app.use(bodyParser.json({ verify: verifyRequestSignature }));
 app.use(express.static('public'));
-
+app.use("/style", express.static(__dirname + '/style'));
 
 // MongoDb connection
 mongoose.connect(config.get('connectionString'));
@@ -402,7 +402,7 @@ function askMenu(senderID, local) {
 
   messageData.message.attachment.payload.elements.push({
         title: "Amber Lager",  
-        image_url: "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-B-Pilsener-1000x1467_1024x1024.png?v=1465834640" ,
+        image_url: "https://beermaster.herokuapp.com/style/AmberLager.png" ,
         buttons: [{
                    type: "postback",
                    title: "Agregar Item",
