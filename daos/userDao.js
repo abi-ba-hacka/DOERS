@@ -19,10 +19,10 @@ module.exports  =  {
 							    console.log("User Saved Successfully");
 							  });  
 					},
-		getUser: function(userId, callback){
-				User.findOne({'id': userId}, function(err, user){
+		getUser: function(userId){
+				return User.findOne({'id': userId}, function(err, user){
 		              if (err) return console.error(err);
-		              callback(user);          
+		              return user;          
 		        });
 		},
 		getFBInformation: function(senderID,callback){

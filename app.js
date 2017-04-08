@@ -296,7 +296,10 @@ function userStartPostback(senderID, userName){
 function sendReceipt(senderID, itemPedidosList) {
   console.log("generando el recibo pa");
   var total = {total_cost: 0};
-
+  var userDataPromise = userController.getUser(senderID);
+  userDataPromise.then(function(result){
+    console.log("me dieron los datos de fb " + result);
+  });
   for(var i = 0; i < itemPedidosList.length; i++)
   {
         total.total_cost += parseFloat(itemPedidosList[i].precio);
@@ -335,8 +338,8 @@ function sendReceipt(senderID, itemPedidosList) {
 
 function userGetsReceipt(senderID) {
     console.log("generate receipt");
-    var promise = itemPedidoController.getItemPedido(senderID);
-    promise.then(function(result){
+    var itemPedidoPromise = itemPedidoController.getItemPedido(senderID);
+    itemPedidoPromise.then(function(result){
        console.log("encontre los siguientes items pedidos " + result);
        for(var i = 0; i < result.length; i++)
        {
