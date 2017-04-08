@@ -8,7 +8,7 @@ const
   mongoose = require('mongoose'),
   apiai = require('apiai'),
   userController = require('./daos/userDao'),
-  pedidoController = require('./pedidoController/pedidoController'),
+  pedidoController = require('./controllers/pedidoController'),
   googleMapController = require('./controllers/googleMapController');
 
 var app = express();
