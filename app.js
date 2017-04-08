@@ -358,7 +358,7 @@ function sendPointList(senderID){
                        {
                        type: "postback",
                        title: "Ver mas",
-                       payload:  JSON.stringify(postbackObject);
+                       payload:  JSON.stringify(postbackObject)
                       }
                       ]
       });
@@ -529,8 +529,6 @@ function askMenu(senderID, local) {
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
-
-
 
 module.exports = app;
 
