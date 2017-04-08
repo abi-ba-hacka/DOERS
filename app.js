@@ -304,7 +304,7 @@ function userAddsItem(senderID, variedad) {
     };
 
 function sendPointList(senderID){
-   var messageData = {
+   /*var messageData = {
         recipient:{
           id:senderID
         }, message: {
@@ -414,7 +414,7 @@ function sendPointList(senderID){
         }//message
      }//data
 
-   callSendAPI(messageData); 
+   callSendAPI(messageData);  */
 }
 
 function callSendAPI(messageData) {
