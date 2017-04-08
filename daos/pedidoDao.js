@@ -3,15 +3,22 @@ var Pedido = require('../models/pedidoModel');
 module.exports = {
 	insertPedido: function(pedido){
 							console.log("llame a grabar pedido con : " + JSON.stringify(pedido));
-					    	var pedido = new Pedido({
-							    id: pedido.userId,                      
+					    	var pedi = new Pedido({
+							    pedidoId: pedido.userId,                      
 							    userId: pedido.userId,
 							    activo: "S"  
 							  });
 
-							  pedido.save(function(err){
+							  pedi.save(function(err){
 							    if ( err ) throw err;
-							    console.log("User Saved Successfully");
+							    console.log("Pedido Saved Successfully");
 							  });  
+					},
+	getPedidoActivoUser: function(userId){
+							console.log("llame a buscar pedidos con: " + JSON.stringify(userId));
+							Pedido.findOne({'pedidoId': userId, "activo": "S"}, function(err, pedido){
+					              if (err) return console.error(err);
+					              callback(pedido);          
+					        });
 					},
 }

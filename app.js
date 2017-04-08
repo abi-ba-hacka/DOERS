@@ -8,7 +8,7 @@ const
   mongoose = require('mongoose'),
   apiai = require('apiai'),
   userController = require('./daos/userDao'),
-  pedidoController = require('./daos/pedidoDao'),
+  pedidoController = require('./controllers/pedidoController'),
   googleMapController = require('./controllers/googleMapController');
 
 var app = express();
@@ -304,6 +304,8 @@ function userAddsItem(senderID, variedad) {
         text: "Agrego una " + variedad + " al pedido"
       }
     };
+    
+    callSendAPI(messageData);
 }
 
 function sendPointList(senderID){  

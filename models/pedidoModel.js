@@ -5,10 +5,10 @@ var Schema = mongoose.Schema;
 //Schema Query
 //***********
 var PedidoSchema = new Schema({
-	id: { type: String },                      
+	pedidoId: { type: String },                      
     userId: { type: String},
-    activo: { type: String},   
-}, { collection : 'Pedido' })
+    activo: { type: String}   
+}, { collection : 'Pedidos' })
 
 var Pedido = mongoose.model('Pedido', PedidoSchema);
 
