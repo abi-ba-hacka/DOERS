@@ -210,15 +210,14 @@ function receivedMessage(event) {
 
     switch(quickReplyPayload){
       case "SEARCH_PATAGONIA_POINTS":
-        shareLocation(senderID, "Para buscar puntos Patagonia cerca necesitamo conocer tu ubicación, puedes escribirla o simplemente oprimir en 'Enviar ubicación.'");
+        shareLocation(senderID, "Para buscar puntos Patagonia cerca necesito conocer tu ubicación, puedes escribirla o simplemente oprimir en 'Enviar ubicación.'");
       break;
       case "SEARCH_PATAGONIA_BEERS":
-        shareLocation(senderID, "Para buscar cervezas Patagonia cerca necesitamo conocer tu ubicación, puedes escribirla o simplemente oprimir en 'Enviar ubicación.'");
+        shareLocation(senderID, "Para buscar cervezas Patagonia cerca necesito conocer tu ubicación, puedes escribirla o simplemente oprimir en 'Enviar ubicación.'");
       break;
     }
     
 
-    sendTextMessage(senderID, "Quick repley tapped");
 
     return;
   }
