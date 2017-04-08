@@ -9,7 +9,7 @@ const
   apiai = require('apiai'),
   userController = require('./daos/userDao'),
   pedidoController = require('./controllers/pedidoController'),
-  itemPedidoController = require('./daos/pedidoItemDao');
+  itemPedidoController = require('./daos/pedidoItemDao'),
   googleMapController = require('./controllers/googleMapController');
 
 var app = express();
