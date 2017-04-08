@@ -7,6 +7,7 @@ const
   request = require('request'),
   mongoose = require('mongoose'),
   apiai = require('apiai'),
+  userController = require('./daos/userDao'),
   googleMapController = require('./controllers/googleMapController');
 
 var app = express();
@@ -319,13 +320,30 @@ function analyzeMessage(senderID, messageText){
 
 
 function receivedPostback(messagingEvent){
-    var postback = messagingEvent.postback;
+    var payload = messagingEvent.postback.payload;
+    var senderID = messagingEvent.sender.id;
 
-    switch(postback){
-      case "USER_START": 
-          sendTextMessage(senderID, "Postaback starter");
-        break;
-    }
+    console.log("POSTBACK! " + payload);
+    console.log(JSON.stringify(messagingEvent));
+
+     userController.getUser(senderID, function(user){
+            if(!user){
+              userController.getFBInformation(senderID, function(userData){
+                  userController.insertUser({id: senderID, nombre : userData.first_name, apellido: userData.last_name, fotoPerfil: userData.profile_pic, genero: userData.gender , zona: userData.locale });
+                  analizePayloads(userData.first_name);
+              });
+            }else{
+                analizePayloads(user.nombre);
+            }
+    });
+
+    function analizePayloads(name){
+         switch(payload){
+            case "USER_START": 
+                sendTextMessage(senderID, "Hola "+ name + " soy El Maestro cervecero, te ayudare a encontrar tu proxima experiencia cervecera superadora.");
+              break;
+          }
+     }
 }
 
 function askMenu(senderID, local) {
