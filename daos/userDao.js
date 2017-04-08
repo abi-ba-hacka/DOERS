@@ -11,7 +11,6 @@ module.exports  =  {
 							    fotoPerfil: usuario.foto,  
 							    genero: usuario.genero,  
 							    zona: usuario.zona, 
-							    type: "User",
 							 	fechaAlta: new Date() 
 							  });
 
