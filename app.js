@@ -296,8 +296,9 @@ function userStartPostback(senderID, userName){
 }
 function userGetsReceipt(senderID) {
     console.log("generate receipt");
-    itemPedidoController.getItemPedido({userId : senderID}, function(resultado){
-      console.log("encontre los siguientes items pedidos " + resultado);
+    var promise = itemPedidoController.getItemPedido(senderID);
+    promise.then(function(result){
+       console.log("encontre los siguientes items pedidos " + result);
     });
 }
 

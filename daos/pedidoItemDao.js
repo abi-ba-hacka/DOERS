@@ -15,11 +15,11 @@ module.exports = {
 							    console.log("Item de Pedido Saved Successfully");
 							  });  
 					},
-		getItemPedido: function(userId, callback){
-			console.log("voy a buscar los pedidos");
-				ItemPedido.find({'userId': userId}, function(err, pedidos){
+		getItemPedido: function(userId){
+				console.log("voy a buscar los pedidos");
+				return ItemPedido.find({'userId': userId}, function(err, pedidos){
 		              if (err) return console.error(err);
-		              callback(pedidos);          
+		              return pedidos;          
 		        });
 		},
 }

@@ -30,19 +30,6 @@ module.exports  =  {
 		              var user = JSON.parse(body);
 		              callback(user);
 		          });
-		}, 
-		setUserType: function(senderID, type, callback){
-				  User.findOne({'id': senderID}, function(err, user){
-		              if (err) return console.error(err);
-		             if(user != undefined){
-		             	user.type = type;
-		             	user.save(function(err){
-							    if ( err ) throw err;
-							    console.log("User " +  type + " updated Successfully");
-							    callback(user);
-						}); 
-		             };           
-		        });
 		},
 		getAll: function(fn){
 			User.find(function(err, users) {
