@@ -260,6 +260,32 @@ function shareLocation(recipientId, speech){
 }
 
 
+function userStartPostback(senderID, userName){
+    var messageData = {
+      recipient: {
+        id: senderID
+      },
+      message: {
+        text:  "Hola "+ userName + " soy El Maestro cervecero, te ayudare a encontrar tu proxima experiencia cervecera superadora.",
+        quick_replies:[
+          {
+            content_type:"text",
+            title:"Buscar puntos Patagonia.",
+            payload:"SEARCH_PATAGONIA_POINTS"
+          },
+          {
+            content_type:"text",
+            title:"Buscar cervezas Patagoni",
+            payload:"SEARCH_PATAGONIA_BEERS"
+          }
+        ]
+      }
+    };
+
+  callSendAPI(messageData);
+}
+
+
 
 function callSendAPI(messageData) {
   request({
@@ -339,8 +365,8 @@ function receivedPostback(messagingEvent){
 
     function analizePayloads(name){
          switch(payload){
-            case "USER_START": 
-                sendTextMessage(senderID, "Hola "+ name + " soy El Maestro cervecero, te ayudare a encontrar tu proxima experiencia cervecera superadora.");
+            case "USER_START":
+                sendTextMessage(senderID,userName);
               break;
           }
      }
