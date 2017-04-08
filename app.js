@@ -289,13 +289,14 @@ function callSendAPI(messageData) {
 
 function analyzeMessage(senderID, messageText){
   var botRequest = botApp.textRequest(messageText, botOptions);
-  sendTextMessage(senderID, "You said " + messageText);
+  var botResponse;
 
 
     botRequest.on('response', function(response) {
         console.log("BOT RESPONSE:");
-        console.log(JSON.stringify(response));
-        
+        botResponse = JSON.stringify(response); 
+        console.log(botResponse);
+        sendTextMessage(senderID, botResponse);
     });
 
     botRequest.on('error', function(error) {
