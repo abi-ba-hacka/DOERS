@@ -298,6 +298,7 @@ function userStartPostback(senderID, userName){
 function sendReceipt(senderID, itemPedidosList) {
   console.log("generando el recibo pa");
   var total = 0;
+  console.log("ASdasdasdsa" + itemPedidosList);
   for(var i = 0; i < itemPedidosList.length; i++)
        {
         total += result[i].precio;
