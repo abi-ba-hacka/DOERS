@@ -456,17 +456,8 @@ function receivedPostback(messagingEvent){
             case "VIEW_MORE": 
               sendTextMessage(senderID, "Ver mas del bar " + postBackObject.barId);
             ;break;
-            case "agregar_amber":
-                userAddsItem(senderID, "amber", "35");
-            break;
-            case "agregar_bohemian":
-                userAddsItem(senderID, "bohemian", "45");
-            break;
-            case "agregar_kune":
-                userAddsItem(senderID, "kune", "23.40");
-            break;
-            case "recibo":
-                userGetsReceipt(senderID);
+            case "AGREGAR":
+                userAddsItem(senderID, postBackObject.variedad, postBackObject.precio);
             break;
           }
      }
@@ -474,7 +465,7 @@ function receivedPostback(messagingEvent){
 
 function askMenu(senderID, local) {
   sendTextMessage(senderID, "Te doy estas opciones para el punto Patagonia elegido!");
-  
+  var postbackObject = { payload: "AGREGAR", variedad: "", precio: "" };
   var messageData = {
     recipient: {
       id: senderID
@@ -490,33 +481,38 @@ function askMenu(senderID, local) {
     }
   };  
 
+  postbackObject.variedad = "amber";
+  postbackObject.precio = "35";
   messageData.message.attachment.payload.elements.push({
         title: "Amber Lager",  
         image_url: "https://beermaster.herokuapp.com/style/AmberLager.png" ,
         buttons: [{
                    type: "postback",
                    title: "Agregar Item",
-                   payload: "agregar_amber"
+                   payload: JSON.stringify(postbackObject)
                   }]
   });
 
+  postbackObject.variedad = "bohemian";
+  postbackObject.precio = "37";
   messageData.message.attachment.payload.elements.push({
         title: "Bohemian Pilsener",  
         image_url: "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-B-Pilsener-1000x1467_1024x1024.png?v=1465834640" ,
         buttons: [{
                    type: "postback",
                    title: "Agregar Item",
-                   payload: "agregar_bohemian"
+                   payload: JSON.stringify(postbackObject)
                   }]
   });
-
+  postbackObject.variedad = "kune";
+  postbackObject.precio = "40";
   messageData.message.attachment.payload.elements.push({
         title: "Patagonia Küné",  
         image_url: "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-Kune-1000x1467_987808b4-187e-4a71-a7f3-fd05793467c7_1024x1024.png?v=1465834661" ,
         buttons: [{
                    type: "postback",
                    title: "Agregar Item",
-                   payload: "agregar_kune"
+                   payload: JSON.stringify(postbackObject)
                   }]
   });
 
