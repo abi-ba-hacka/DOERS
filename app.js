@@ -369,7 +369,7 @@ function askMenu(senderID, local) {
         image_url: "https://cdn.shopify.com/s/files/1/1103/5152/products/cerveza_patagonia_amber_lager_product_7eaab25a-7292-497f-b1ce-6cb9f0477061_1024x1024.png?v=1465834631" ,
         buttons: [{
                    type: "postback",
-                   title: "AgregarItem",
+                   title: "Agregar Item",
                    payload: "item_add"
                   }]
   });
@@ -379,7 +379,7 @@ function askMenu(senderID, local) {
         image_url: "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-B-Pilsener-1000x1467_1024x1024.png?v=1465834640" ,
         buttons: [{
                    type: "postback",
-                   title: "AgregarItem",
+                   title: "Agregar Item",
                    payload: "item_add"
                   }]
   });
