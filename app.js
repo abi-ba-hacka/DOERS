@@ -294,12 +294,17 @@ function userStartPostback(senderID, userName){
 
   callSendAPI(messageData);
 }
+function userGetsReceipt(senderID) {
+    itemPedidoController.getItemPedido({userId : senderID}, function(resultado){
+      console.log("encontre los siguientes items pedidos " + JSON.stringify(resultado));
+    });
+}
 
-function userAddsItem(senderID, variedad) {
+function userAddsItem(senderID, variedad, precio) {
     pedidoController.insertPedido({ userId:senderID}, function(resultado) {
       console.log("obtuve el siguiente resultado de la insert: " + resultado);
 
-      itemPedidoController.insertarItemPedido({ userId: resultado.userId,  variedad: variedad});
+      itemPedidoController.insertarItemPedido({ userId: resultado.userId,  variedad: variedad, precio: precio});
 
       var messageData = {
         recipient: {
@@ -400,6 +405,9 @@ function analyzeMessage(senderID, messageText){
       case "menu":
         askMenu(senderID, 2);
       break;
+      case "recibo":
+        userGetsReceipt(senderID);
+      break;
       case "point":
         sendPointList(senderID);
       break;
@@ -448,13 +456,16 @@ function receivedPostback(messagingEvent){
               sendTextMessage(senderID, "Ver mas del bar " + postBackObject.barId);
             ;break;
             case "agregar_amber":
-                userAddsItem(senderID, "amber");
+                userAddsItem(senderID, "amber", "35");
             break;
             case "agregar_bohemian":
-                userAddsItem(senderID, "bohemian");
+                userAddsItem(senderID, "bohemian", "45");
             break;
             case "agregar_kune":
-                userAddsItem(senderID, "kune");
+                userAddsItem(senderID, "kune", "23.40");
+            break;
+            case "recibo":
+                userGetsReceipt(senderID);
             break;
           }
      }
