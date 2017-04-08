@@ -5,3 +5,14 @@
 curl -X POST -H "Content-Type: application/json" -d '{ 
 "setting_type":"call_to_actions","thread_state":"new_thread","call_to_actions":[
 {"payload":"USER_START"}]}' "https://graph.facebook.com/v2.6/me/thread_settings?access_token=EAAF2MOspCrUBAKORIu78cdVBcdvsvJKsFzFHHloZBy9CqDX6hqvSYZA2clo6h6ZCZBSoFQ5wOd2ygOnBuKf5VkoY3IemzAOtWqkeMpkFEACGuIt5yqICN51qZCO4yeZCUhjXsRcUlTG54ZAhLJROZCx8ZAouhshZAr7qknb6Rx8iGqMgZDZD"   
+
+
+
+curl -X POST -H "Content-Type: application/json" -d '{
+  "setting_type":"greeting",
+  "greeting":{
+    "text":"Hola {{user_first_name}}, bienvenido al maestro cervecero!."
+  }
+}' "https://graph.facebook.com/v2.6/me/thread_settings?access_token=EAAF2MOspCrUBAKORIu78cdVBcdvsvJKsFzFHHloZBy9CqDX6hqvSYZA2clo6h6ZCZBSoFQ5wOd2ygOnBuKf5VkoY3IemzAOtWqkeMpkFEACGuIt5yqICN51qZCO4yeZCUhjXsRcUlTG54ZAhLJROZCx8ZAouhshZAr7qknb6Rx8iGqMgZDZD"    
+
+

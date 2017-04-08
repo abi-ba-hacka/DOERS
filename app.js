@@ -147,7 +147,7 @@ app.post('/webhook', function (req, res) {
         } else if (messagingEvent.delivery) {
           //receivedDeliveryConfirmation(messagingEvent);
         } else if (messagingEvent.postback) {
-          //receivedPostback(messagingEvent);
+          receivedPostback(messagingEvent);
         } else if (messagingEvent.read) {
           //receivedMessageRead(messagingEvent);
         } else if (messagingEvent.account_linking) {
@@ -207,7 +207,7 @@ function receivedMessage(event) {
     console.log("Quick reply for message %s with payload %s",
       messageId, quickReplyPayload);
 
-    analizePayload(senderID, quickReplyPayload);
+    sendTextMessage(senderID, "Quick repley tapped");
 
     return;
   }
@@ -316,13 +316,14 @@ function analyzeMessage(senderID, messageText){
 }
 
 
-function analizePayload(senderID, payload){
+function receivedPostback(messagingEvent){
+    var postback = messagingEvent.postback;
 
-  switch(payload){
-    case "USER_START":
-      sendTextMessage(senderID, "User Start" );
-    ;break;
-  }
+    switch(postback){
+      case "USER_START": 
+          sendTextMessage(senderID, "Postaback starter");
+        break;
+    }
 }
 
 
