@@ -16,9 +16,9 @@ module.exports = {
 							    console.log("Pedido Saved Successfully");
 							  });  
 					},
-	getPedidoActivoUser: function(userId){
+	getPedidoActivoUser: function(userId, callback){
 							console.log("llame a buscar pedidos con: " + JSON.stringify(userId));
-							Pedido.findOne({'pedidoId': userId, "activo": "S"}, function(err, pedido){
+							Pedido.findOne({'id': userId, "activo": "S"}, function(err, pedido){
 					              if (err) return console.error(err);
 					              callback(pedido);          
 					        });
