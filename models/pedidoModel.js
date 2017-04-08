@@ -7,7 +7,7 @@ var Schema = mongoose.Schema;
 var PedidoSchema = new Schema({
 	pedidoId: { type: String },                      
     userId: { type: String},
-    activo: { type: String},   
+    activo: { type: String}   
 }, { collection : 'Pedido' })
 
 var Pedido = mongoose.model('Pedido', PedidoSchema);
