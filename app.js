@@ -294,6 +294,37 @@ function userStartPostback(senderID, userName){
 
   callSendAPI(messageData);
 }
+
+function sendReceipt(senderID, itemPedidosList) {
+  var total = 0;
+  for(var i = 0; i < result.length; i++)
+       {
+        total += result[i].precio;
+       }
+       
+  var messageData = {
+    recipient: {
+      id: senderID
+    },
+    message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "receipt",
+          recipient_name: "Federico Pérez",
+          order_nombre: "12314123",
+          currency: "ARS",
+          payment_method: "VISA 5494",
+          summary: total;
+          elements: []
+        }
+      }
+    }
+  };  
+
+  callSendAPI(messageData);
+}
+
 function userGetsReceipt(senderID) {
     console.log("generate receipt");
     var promise = itemPedidoController.getItemPedido(senderID);
