@@ -207,7 +207,8 @@ function receivedMessage(event) {
     console.log("Quick reply for message %s with payload %s",
       messageId, quickReplyPayload);
 
-    sendTextMessage(senderID, "Quick reply tapped");
+    analizePayload(senderID, quickReplyPayload);
+
     return;
   }
 
@@ -294,7 +295,9 @@ function analyzeMessage(senderID, messageText){
     switch(messageText){
       case "location":
         shareLocation(senderID, "Para buscar cervezas cerca necesitamos conocer tu ubicación, puedes pasarnos una direccion o simplemente oprimir en 'Enviar ubicación.'");
-      ;break;
+      break;
+      default:
+        sendTextMessage(senderID, "You said " + messageText);
     }
 
 
@@ -310,6 +313,16 @@ function analyzeMessage(senderID, messageText){
     });
 
     botRequest.end();
+}
+
+
+function analizePayload(senderID, payload){
+
+  switch(payload){
+    case "USER_START":
+      sendTextMessage(senderID, "User Start" );
+    ;break;
+  }
 }
 
 
