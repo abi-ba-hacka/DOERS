@@ -298,10 +298,11 @@ function analyzeMessage(senderID, messageText){
       default:
         var botRequest = botApp.textRequest(messageText, botOptions);
           botRequest.on('response', function(response) {
-            console.log("BOT RESPONSE:");
-            botResponse = JSON.stringify(response); 
+            console.log("BOT RESPONSE: ");
             console.log(botResponse);
             sendTextMessage(senderID, response.result.fulfillment.speech);
+            // prueba 
+            console.log(response.result);
         });
 
         botRequest.on('error', function(error) {
