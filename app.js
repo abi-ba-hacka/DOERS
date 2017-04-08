@@ -409,10 +409,10 @@ function sendPointList(senderID){
                           payload: "payload"                        
                       }
                   ]  
-              }
-          }
-
-   }
+              } //payload
+          } //atachment
+        }//message
+     }//data
 
    callSendAPI(messageData); 
 }
