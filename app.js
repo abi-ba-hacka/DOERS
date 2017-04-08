@@ -301,7 +301,7 @@ function sendReceipt(senderID, itemPedidosList) {
        {
         total += result[i].precio;
        }
-       
+
   var messageData = {
     recipient: {
       id: senderID
@@ -334,6 +334,8 @@ function userGetsReceipt(senderID) {
        {
           console.log("Adquiriste una " + result[i].variedad + " a $" + result[i].precio);
        }
+
+       sendReceipt(senderID, result);
     });
 }
 
