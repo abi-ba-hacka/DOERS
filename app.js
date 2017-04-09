@@ -403,7 +403,7 @@ function sendReceipt(senderID, itemPedidosList) {
 
   for(var i = 0; i < consumoCategoria.length; i++)
   {
-    var posiOfUrl = itemPedidosList.map(function(e) { return e.variedad; }).indexOf(itemToAdd.nom);
+    var posiOfUrl = itemPedidosList.map(function(e) { return e.variedad; }).indexOf(consumoCategoria[i].nom);
     console.log("en la posicion" + posiOfUrl);
      messageData.message.attachment.payload.elements.push({
         title: consumoCategoria[i].nom,
