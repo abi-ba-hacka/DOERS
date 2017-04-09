@@ -64,7 +64,7 @@
           MessengerExtensions.getUserID(function success(uids) {
           // User ID was successfully obtained. 
             var psid = uids.psid;
-            alert("user id: " psid);
+            alert("user id: " + psid);
             console.log(psid);
           }, function error(err, errorMessage) {      
               console.log("error al consegui usuario");
