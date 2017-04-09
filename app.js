@@ -789,6 +789,7 @@ function snackMenu(senderID, barId) {
       };  
 
         snacksController.getSnacksByBarId(barId ,function(snacks){
+            console.log("Cantidad de snacks " + snacks.length);
             for(var i = 0; i < snacks.length; i++){
               postbackObject.variedad = snacks[i].description;
               postbackObject.precio = snacks[i].price;
