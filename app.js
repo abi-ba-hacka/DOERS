@@ -510,9 +510,9 @@ function sendPointList(senderID){
 
 function showBarDetail(senderID, idBar){
       var messageData = {
-    recipient: {
-      id: senderID
-    },
+      recipient: {
+        id: senderID
+      },
     message: {
       attachment: {
         type: "template",
@@ -526,7 +526,7 @@ function showBarDetail(senderID, idBar){
                         {
                           type:"postback",
                           title:"Ver Cervezas",
-                          payload: JSON.stringify({payload:"MENU", barId: idBar})
+                          payload: JSON.stringify({payload:"SHOW_BEER", barId: idBar})
                         }              
                       ]      
                     },
@@ -661,7 +661,7 @@ function receivedPostback(messagingEvent){
                 userAddsItem(senderID, postBackObject.variedad, postBackObject.precio, postBackObject.url);
             break;
             case "SHOW_BEER": 
-              sendTextMessage(senderID, "Ver birra " + postBackObject.barId);
+              beerMenu(senderID, postBackObject.barId);
               ;break;
             case "SHOW_MERCH": 
               sendTextMessage(senderID, "Ver merchandising " + postBackObject.barId);
@@ -669,14 +669,11 @@ function receivedPostback(messagingEvent){
             case "SHOW_SNACKS": 
              sendTextMessage(senderID, "Ver snacks de " + postBackObject.barId);
               ;break;
-            case "MENU":
-              askMenu(senderID, postBackObject.barId);
-              ;break;
           }
      }
 }
 
-function askMenu(senderID, local) {
+function beerMenu(senderID, local) {
   sendTextMessage(senderID, "Te doy estas opciones para el punto Patagonia elegido!");
   var postbackObject = { payload: "AGREGAR", variedad: "", precio: "" , url: ""};
   var messageData = {
