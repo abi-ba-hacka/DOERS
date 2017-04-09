@@ -333,7 +333,7 @@ function testQR(senderID) {
   callSendAPI(messageData);
 }
 
-function sendReceipt(senderID, itemPedidosList, callback) {
+function sendReceipt(senderID, itemPedidosList) {
   console.log("generando el recibo pa");
   var total = {total_cost: 0};
   var userDataPromise = userController.getUser(senderID);
@@ -377,7 +377,6 @@ function sendReceipt(senderID, itemPedidosList, callback) {
 
 
   });
-    callback(1);
 }
 
 function userGetsReceipt(senderID) {
@@ -390,8 +389,7 @@ function userGetsReceipt(senderID) {
           console.log("Adquiriste una " + result[i].variedad + " a $" + result[i].precio);
        }
 
-       sendReceipt(senderID, result, function(result){
-        if(result == 1){
+       sendReceipt(senderID, result);
            sendTextMessage(senderID, "Acercate al bar con el código QR, y disfruta de la experiencia Patagonia de una forma más ágil!");
 
             var qr_svg = qr.image('I love QR!', { type: 'png' });
@@ -413,12 +411,6 @@ function userGetsReceipt(senderID) {
             };
 
             callSendAPI(messageDataQR); 
-          }
-          else{
-            sendTextMessage(senderID, "Parece que hubo un problema para generar tu recibo... lamentamos el inconveniente!");
-          }
-       });
-
 
     });
 }
