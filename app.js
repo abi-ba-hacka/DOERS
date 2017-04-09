@@ -14,6 +14,7 @@ const
   carouselController = require('./controllers/carouselController'),
   beerController = require('./daos/beerDao'),
   itemPedidoController = require('./daos/pedidoItemDao'),
+  snacksController = require('./controllers/snacksController'),
   googleMapController = require('./controllers/googleMapController');
 
 var app = express();
@@ -47,6 +48,26 @@ app.get('/testCoordinates', function (req, res) {
         res.send(JSON.stringify(directionsObject));
     });  
 });
+
+app.get('/insertSnacks', function (req, res) {
+    var newSnack = {};
+
+    snacksController.insert()
+
+   for (var i = 0; i < 10; i++) { 
+      newSnack.id ,                      
+      newSnack.barId,
+      newSnack.name,
+      newSnack.description,
+      newSnack.price,
+      newSnack.image 
+    }
+
+
+    snacksController.insertSnack(newPub);
+    res.send("Pubs creados"); 
+});
+
 
 /*
 app.get('/insertPubs', function (req, res) {
