@@ -373,10 +373,11 @@ function sendReceipt(senderID, itemPedidosList) {
 
       for(var i = 0; i < itemPedidosList.length; i++)
       {
-        var itemToAdd = {nom : itemPedidosList[i].variedad, costoCat : itemPedidosList[i].precio};
+        var itemToAdd = {nom : itemPedidosList[i].variedad, costoCat : parseFloat(itemPedidosList[i].precio), costoUni : parseFloat(itemPedidosList[i].precio), cantidad : 1};
+        var posi = consumoCategoria.map(function(e) { return e.nom; }).indexOf(itemToAdd.nom);
         console.log("voy a testear con " + JSON.stringify(itemToAdd));
-        console.log("posi " + consumoCategoria.map(function(e) { return e.nom; }).indexOf(itemToAdd.nom));
-        consumoCategoria.map(function(e) { return e.nom; }).indexOf(itemToAdd.nom) === -1 ? consumoCategoria.push(itemToAdd) : console.log(consumoCategoria.indexOf(itemToAdd));
+        console.log("posi " + posi);
+        consumoCategoria.map(function(e) { return e.nom; }).indexOf(itemToAdd.nom) === -1 ? consumoCategoria.push(itemToAdd) : (consumoCategoria[posi].costoCat += parseFloat(itemToAdd.costoCat), consumoCategoria[posi].cantidad += 1);
         total.total_cost += parseFloat(itemPedidosList[i].precio);
       }
   console.log("el consumo por cat quedo : " + JSON.stringify(consumoCategoria));
@@ -400,11 +401,11 @@ function sendReceipt(senderID, itemPedidosList) {
     }
   };  
 
-  for(var i = 0; i < itemPedidosList.length; i++)
+  for(var i = 0; i < consumoCategoria.length; i++)
   {
      messageData.message.attachment.payload.elements.push({
-        title: itemPedidosList[i].variedad,
-        price: itemPedidosList[i].precio,
+        title: itemPedidosList[i].nom,
+        price: itemPedidosList[i].costoCat,
         image_url: itemPedidosList[i].url
      });
   }
