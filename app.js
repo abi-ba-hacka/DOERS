@@ -330,7 +330,7 @@ function sendReceipt(senderID, itemPedidosList) {
      messageData.message.attachment.payload.elements.push({
         title: itemPedidosList[i].variedad,
         price: itemPedidosList[i].precio,
-        image_url: "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-Amber-Larger-1000x1467_1024x1024_10b329a6-d70d-4408-b697-343e841337ff_1024x1024.png?v=1465834626"
+        image_url: itemPedidosList[i].url
      });
   }
   callSendAPI(messageData);
@@ -352,11 +352,11 @@ function userGetsReceipt(senderID) {
     });
 }
 
-function userAddsItem(senderID, variedad, precio) {
+function userAddsItem(senderID, variedad, precio, url) {
     pedidoController.insertPedido({ userId:senderID}, function(resultado) {
       console.log("obtuve el siguiente resultado de la insert: " + resultado);
 
-      itemPedidoController.insertarItemPedido({ userId: resultado.userId,  variedad: variedad, precio: precio});
+      itemPedidoController.insertarItemPedido({ userId: resultado.userId,  variedad: variedad, precio: precio, url: url});
 
       var messageData = {
         recipient: {
@@ -516,7 +516,7 @@ function receivedPostback(messagingEvent){
 
 function askMenu(senderID, local) {
   sendTextMessage(senderID, "Te doy estas opciones para el punto Patagonia elegido!");
-  var postbackObject = { payload: "AGREGAR", variedad: "", precio: "" };
+  var postbackObject = { payload: "AGREGAR", variedad: "", precio: "" , url: ""};
   var messageData = {
     recipient: {
       id: senderID
@@ -534,10 +534,12 @@ function askMenu(senderID, local) {
 
   postbackObject.variedad = "Patagonia Amber Lager";
   postbackObject.precio = "68";
+  postBackObject.url = "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-Amber-Larger-1000x1467_1024x1024_10b329a6-d70d-4408-b697-343e841337ff_1024x1024.png?v=1465834626";
+
   messageData.message.attachment.payload.elements.push({
         title: "Patagonia Amber Lager",
         subtitle: "$68",  
-        image_url: "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-Amber-Larger-1000x1467_1024x1024_10b329a6-d70d-4408-b697-343e841337ff_1024x1024.png?v=1465834626" ,
+        image_url: postBackObject.url,
         buttons: [{
                    type: "postback",
                    title: "Agregar Item",
@@ -547,10 +549,12 @@ function askMenu(senderID, local) {
 
   postbackObject.variedad = "Patagonia Bohemian Pilsener";
   postbackObject.precio = "68";
+  postBackObject.url = "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-B-Pilsener-1000x1467_1024x1024.png?v=1465834640";
+
   messageData.message.attachment.payload.elements.push({
         title: "Patagonia Bohemian Pilsener",  
         subtitle: "$68",
-        image_url: "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-B-Pilsener-1000x1467_1024x1024.png?v=1465834640" ,
+        image_url: postbackObject.url,
         buttons: [{
                    type: "postback",
                    title: "Agregar Item",
@@ -559,10 +563,12 @@ function askMenu(senderID, local) {
   });
   postbackObject.variedad = "Patagonia Küné";
   postbackObject.precio = "58";
+  postbackObject.url = "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-Kune-1000x1467_987808b4-187e-4a71-a7f3-fd05793467c7_1024x1024.png?v=1465834661";
+
   messageData.message.attachment.payload.elements.push({
         title: "Patagonia Küné",  
         subtitle: "$58",
-        image_url: "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-Kune-1000x1467_987808b4-187e-4a71-a7f3-fd05793467c7_1024x1024.png?v=1465834661" ,
+        image_url: postBackObject.url,
         buttons: [{
                    type: "postback",
                    title: "Agregar Item",
@@ -572,6 +578,8 @@ function askMenu(senderID, local) {
 
   postbackObject.variedad = "Patagonia Weisse";
   postbackObject.precio = "68";
+  postBackObject.url = "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-Kune-1000x1467_987808b4-187e-4a71-a7f3-fd05793467c7_1024x1024.png?v=1465834661";
+
   messageData.message.attachment.payload.elements.push({
         title: "Patagonia Weisse",  
         subtitle: "$68",
@@ -585,10 +593,12 @@ function askMenu(senderID, local) {
 
   postbackObject.variedad = "Patagonia 24.7 - Session IPA con Sauco";
   postbackObject.precio = "58";
+  postBackObject.url = "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-24-7-1000x1467_1024x1024.jpg?v=1483734202";
+
   messageData.message.attachment.payload.elements.push({
         title: "Patagonia 24.7 - Session IPA con Sauco",  
         subtitle: "$58",
-        image_url: "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-24-7-1000x1467_1024x1024.jpg?v=1483734202" ,
+        image_url: postBackObject.url ,
         buttons: [{
                    type: "postback",
                    title: "Agregar Item",
