@@ -353,6 +353,7 @@ function userGetsReceipt(senderID) {
 }
 
 function userAddsItem(senderID, variedad, precio, url) {
+  console.log("LLEGO LA URL " + url);
     pedidoController.insertPedido({ userId:senderID}, function(resultado) {
       console.log("obtuve el siguiente resultado de la insert: " + resultado);
 
@@ -508,7 +509,7 @@ function receivedPostback(messagingEvent){
               sendTextMessage(senderID, "Ver mas del bar " + postBackObject.barId);
             ;break;
             case "AGREGAR":
-                userAddsItem(senderID, postBackObject.variedad, postBackObject.precio);
+                userAddsItem(senderID, postBackObject.variedad, postBackObject.precio, postBackObject.url);
             break;
           }
      }
