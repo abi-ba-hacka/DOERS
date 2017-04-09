@@ -12,7 +12,7 @@ const
   pedidoController = require('./controllers/pedidoController'),
   pubController = require('./controllers/pubController'),
   carouselController = require('./controllers/carouselController'),
-  //beerController = require('./daos/beerDao'),
+  beerController = require('./daos/beerDao'),
   itemPedidoController = require('./daos/pedidoItemDao'),
   snacksController = require('./controllers/snacksController'),
   googleMapController = require('./controllers/googleMapController');
@@ -681,10 +681,10 @@ function analyzeMessage(senderID, messageText){
 
 function receivedPostback(messagingEvent){
       var postBackObject = {};
-      console.log("recibi postback:" + JSON.parse(messagingEvent.postback.payload));
+      console.log("recibi postback:" + JSON.stringify(messagingEvent.postback.payload));
       console.log("que tiene el payload " + messagingEvent.postback.payload);
       try {
-         postBackObject.payload =  JSON.parse(messagingEvent.postback.payload);
+         postBackObject =  JSON.parse(messagingEvent.postback.payload);
       } catch (e) {
         console.log("me quede en el catch");
          postBackObject.payload = messagingEvent.postback.payload;
@@ -692,11 +692,6 @@ function receivedPostback(messagingEvent){
 
       var senderID = messagingEvent.sender.id;
       
-
-
-
-    function analizePayloads(name){
-      console.log("analizo las payladsss");
          switch(postBackObject.payload){
             case "USER_START":
                 var userPromise = userController.getUser(senderID);
@@ -719,8 +714,8 @@ function receivedPostback(messagingEvent){
                 userAddsItem(senderID, postBackObject.variedad, postBackObject.precio, postBackObject.url);
             ;break;
             case "SHOW_BEER": 
-             // beerMenu(senderID, postBackObject.barId);
-             sendTextMessage(senderID, "ver birra" + postBackObject.barId);
+             beerMenu(senderID, postBackObject.barId);
+             //sendTextMessage(senderID, "ver birra" + postBackObject.barId);
               ;break;
             case "SHOW_MERCH": 
               sendTextMessage(senderID, "Ver merchandising " + postBackObject.barId);
@@ -732,7 +727,7 @@ function receivedPostback(messagingEvent){
 
 
           }
-     }
+     
 }
 
 function beerMenu(senderID, local) {
@@ -752,9 +747,24 @@ function beerMenu(senderID, local) {
       }
     }
   };  
-   /* beerController.getBeerPerLocal(local ,function(beer){
+    beerController.getBeerPerLocal(local ,function(beer){
       console.log("obtuve " + beer);
-    });*/
+        for(var i = 0; i < beer.length; i++){
+        messageData.message.attachment.payload.elements.push({
+          title: beer[i].description,
+          subtitle: beer[i].price,
+          image_url: beer[i].image,
+          buttons: [{
+                       type: "postback",
+                       title: "Agregar Item",
+                       payload: JSON.stringify(postbackObject)
+                      }] 
+        });
+      }
+        callSendAPI(messageData);
+    });
+
+    /*
     postbackObject.variedad = "Patagonia Amber Lager";
     postbackObject.precio = "68";
     postbackObject.url = "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-Amber-Larger-1000x1467_1024x1024_10b329a6-d70d-4408-b697-343e841337ff_1024x1024.png?v=1465834626";
@@ -827,9 +837,9 @@ function beerMenu(senderID, local) {
                      title: "Agregar Item",
                      payload: JSON.stringify(postbackObject)
                     }]
-    });
+    });*/
 
-  callSendAPI(messageData);
+
 }
 
 // Start server
