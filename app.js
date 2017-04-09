@@ -553,8 +553,22 @@ function userAddsItem(senderID, variedad, precio, url) {
         recipient: {
           id: senderID
         },
-        message: {
-          text: "Agrego una " + variedad + " al pedido"
+        message:{
+                    attachment:{
+                      type:"template",
+                      payload:{
+                        template_type:"button",
+                        text:"Agrego una " + variedad + " al pedido.",
+                        buttons:[
+                            {
+                                type:"web_url",
+                                url:"https://beermaster.herokuapp.com/",
+                                title:"Pagar",
+                                webview_height_ratio: "compact" 
+                            }
+                        ]
+                      }
+                    }
         }
       };
       
@@ -882,24 +896,6 @@ function merchaMenu(senderID, barId) {
 
     });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // Start server
