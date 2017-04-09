@@ -18,7 +18,7 @@ module.exports  =  {
 							  });  
 					},
 		getPubById: function(pubId){
-				return Pub.findOne({'id': pubId}, function(err, pub){
+				return Pub.find({'id': pubId}, function(err, pub){
 		              if (err) return console.error(err);
 		              		return pub;          
 		        });
