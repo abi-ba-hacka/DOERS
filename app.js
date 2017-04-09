@@ -480,7 +480,7 @@ function showBarDetail(senderID, idBar){
                         {
                           type:"postback",
                           title:"Ver Cervezas",
-                          payload: JSON.stringify({payload:"SHOW_BEER", barId: idBar});
+                          payload: JSON.stringify({payload:"SHOW_BEER", barId: idBar})
                         }              
                       ]      
                     },
@@ -491,7 +491,7 @@ function showBarDetail(senderID, idBar){
                         {
                           type:"postback",
                           title:"Ver Snacks",
-                          payload: JSON.stringify({payload:"SHOW_SNACKS", barId: idBar});
+                          payload: JSON.stringify({payload:"SHOW_SNACKS", barId: idBar})
                         }              
                       ]      
                     },
@@ -502,7 +502,7 @@ function showBarDetail(senderID, idBar){
                         {
                           type:"postback",
                           title:"Ver Merchandising",
-                          payload: JSON.stringify({payload:"SHOW_MERCH", barId: idBar});
+                          payload: JSON.stringify({payload:"SHOW_MERCH", barId: idBar})
                         }              
                       ]      
                     }
