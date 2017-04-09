@@ -53,14 +53,26 @@
     <script>
      var userID = "" ;
       window.extAsyncInit = function() {
-      document.getElementById("paymentButton").addEventListener("click",function(){ 
-            MessengerExtensions.requestCloseBrowser(function success() {
+          $( "#paymentButton" ).click(function() {
+              MessengerExtensions.requestCloseBrowser(function success() {
                     console.log("Cerrar browser");
+                         $.ajax({
+                           url:"https://beermaster.herokuapp.com/showRecibo",
+                           data: {userId: userID},
+                           dataType: 'jsonp', // Notice! JSONP <-- P (lowercase)
+                           success:function(json){
+                               alert("Success");
+                           },
+                           error:function(){
+                               alert("Error");
+                           }      
+                        });
                 }, function error(err) {
                     console.log("Fallo cerrar browser");
                     console.log(err)
                 });
-        });
+          });
+
 
           MessengerExtensions.getUserID(function success(uids) {
           // User ID was successfully obtained. 
@@ -74,8 +86,6 @@
 
         console.log("Done  Loading");
       };
-
-         
     </script>
 </body>
 </html>
