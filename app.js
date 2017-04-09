@@ -585,19 +585,26 @@ function analyzeMessage(senderID, messageText){
 
 
 function receivedPostback(messagingEvent){
-    var postBackObject = JSON.parse(messagingEvent.postback.payload);
-    var senderID = messagingEvent.sender.id;
-    var userPromise = userController.getUser(senderID);
-    userPromise.then(function(user){
-            if(!user){
-              userController.getFBInformation(senderID, function(userData){
-                  userController.insertUser({id: senderID, nombre : userData.first_name, apellido: userData.last_name, fotoPerfil: userData.profile_pic, genero: userData.gender , zona: userData.locale });
-                  analizePayloads(userData.first_name);
-              });
-            }else{
-                analizePayloads(user.nombre);
-            }
-  });
+      var postBackObject = {};
+
+      try {
+         postBackObject =  JSON.parse(messagingEvent.postback.payload);
+      } catch (e) {
+         postBackObject.payload = messagingEvent.postback.payload;
+      }
+
+      var senderID = messagingEvent.sender.id;
+      var userPromise = userController.getUser(senderID);
+      userPromise.then(function(user){
+              if(!user){
+                userController.getFBInformation(senderID, function(userData){
+                    userController.insertUser({id: senderID, nombre : userData.first_name, apellido: userData.last_name, fotoPerfil: userData.profile_pic, genero: userData.gender , zona: userData.locale });
+                    analizePayloads(userData.first_name);
+                });
+              }else{
+                  analizePayloads(user.nombre);
+              }
+      });
 
 
 
