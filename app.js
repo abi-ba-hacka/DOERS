@@ -306,7 +306,7 @@ function testQR(senderID) {
         attachment:{
           type: "image",
           payload:{
-            url: "https://beermaster.herokuapp.com/style/i_love_qr.svg"
+            url: "https://beermaster.herokuapp.com/style/i_love_qr.png"
           }
         }
     }
