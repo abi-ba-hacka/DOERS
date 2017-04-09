@@ -654,13 +654,13 @@ function receivedPostback(messagingEvent){
                             userStartPostback(senderID, user.nombre);
                         }
                 });
-            break;
+            ;break;
             case "VIEW_MORE": 
               showBarDetail(senderID, postBackObject.barId);
             ;break;
             case "AGREGAR":
                 userAddsItem(senderID, postBackObject.variedad, postBackObject.precio, postBackObject.url);
-            break;
+            ;break;
             case "SHOW_BEER": 
               beerMenu(senderID, postBackObject.barId);
               ;break;
