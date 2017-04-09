@@ -696,6 +696,10 @@ function beerMenu(senderID, local) {
     beerController.getBeerPerLocal(local ,function(beer){
       console.log("obtuve " + beer);
         for(var i = 0; i < beer.length; i++){
+        postbackObject.variedad = beer[i].description;
+        postbackObject.precio = beer[i].price;
+        postbackObject.url = beer[i].image;
+
         messageData.message.attachment.payload.elements.push({
           title: beer[i].description,
           subtitle: beer[i].price,
