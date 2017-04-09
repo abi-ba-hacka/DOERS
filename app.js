@@ -9,7 +9,9 @@ const
   apiai = require('apiai'),
   userController = require('./daos/userDao'),
   pedidoController = require('./controllers/pedidoController'),
-  itemPedidoController = require('./daos/pedidoItemDao');
+  pubController = require('./controllers/pubController'),
+  carouselController = require('./controllers/carouselController'),
+  itemPedidoController = require('./daos/pedidoItemDao'),
   googleMapController = require('./controllers/googleMapController');
 
 var app = express();
@@ -44,6 +46,24 @@ app.get('/testCoordinates', function (req, res) {
     });  
 });
 
+
+/*
+app.get('/insertPubs', function (req, res) {
+    var newPub = {};
+
+    for (var i = 0; i < 10; i++) {
+      newPub.id =  i  ;                  
+      newPub.name = "Nombre falso " + i;
+      newPub.direction =  "Calle falsa 123";
+      newPub.geoLatLang = " ";
+      newPub.availableTime = "Horario: " + (10 + i) + ":00 a " + "05:00."; 
+      newPub.image = "https://beermaster.herokuapp.com/style/bar/refugio " + i + ".png"
+      newPub.phone_number = "1524549287";
+      pubController.insertPub(newPub);
+    }
+
+    res.send("Pubs creados"); 
+});*/
 
 /*********************************************************************************/
 // About Aboutpage
@@ -279,12 +299,12 @@ function userStartPostback(senderID, userName){
           {
             content_type:"text",
             title:"Bares Patagonia",
-            payload:"SEARCH_PATAGONIA_POINTS"
+            payload:JSON.stringify({payload:"SEARCH_PATAGONIA_POINTS"});
           },
           {
             content_type:"text",
             title:"Cervezas Patagonia",
-            payload:"SEARCH_PATAGONIA_BEERS"
+            payload:JSON.stringify({payload:"SEARCH_PATAGONIA_BEERS"});
           }
         ]
       }
@@ -331,7 +351,7 @@ function sendReceipt(senderID, itemPedidosList) {
   }
   callSendAPI(messageData);
 }
->>>>>>> 750b4bc6b3d76aa802deac77d8483da85a8dd5df
+
 
 function userGetsReceipt(senderID) {
     console.log("generate receipt");
@@ -382,37 +402,75 @@ function sendPointList(senderID){
     }
   };  
 
+  var promise = pubController.getAll();
 
-
-  var postbackObject = { payload: "VIEW_MORE", barId: "" };
-
-  for (var i = 0; i < 10; i++) {
-      postbackObject.barId = i;
-      messageData.message.attachment.payload.elements.push({
-            title: "Bar Nº " + i,
-            subtitle:"Calle Falsa 1232 \n Horario: 14:00 a 22:00",  
-            image_url: "https://beermaster.herokuapp.com/style/AmberLager.png" ,
-            buttons: [
-                      {
-                        "type":"element_share"
-                      },
-                      {
-                          "type":"phone_number",
-                          "title":"Llamar",
-                          "payload":"+1524549287"
-                       },
-                       {
-                       type: "postback",
-                       title: "Ver mas",
-                       payload:  JSON.stringify(postbackObject)
-                      }
-                      ]
+  promise.then(function(pubs){
+      carouselController.getPubsToCarouselElement(function(carouselPubs){
+          messageData.message.attachment.payload.elements = carouselPubs;
       });
-  }
-  
+  });
 
   callSendAPI(messageData); 
 }
+
+function showBarDetail(senderID, idBar){
+      var messageData = {
+    recipient: {
+      id: senderID
+    },
+    message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "generic",
+          elements: [
+                     {
+                      title:"Cervezas",
+                      image_url:"https://beermaster.herokuapp.com/style/products/cervezas.jpeg"
+                      buttons:[
+                        {
+                          type:"postback",
+                          title:"Ver Cervezas",
+                          payload: JSON.stringify({payload:"SHOW_BEER", barId: idBar});
+                        }              
+                      ]      
+                    },
+                    {
+                      title:"Snacks",
+                      image_url:"https://beermaster.herokuapp.com/style/products/snacks.jpeg"
+                      buttons:[
+                        {
+                          type:"postback",
+                          title:"Ver Snacks",
+                          payload: JSON.stringify({payload:"SHOW_SNACKS", barId: idBar});
+                        }              
+                      ]      
+                    },
+                    {
+                      title:"Merchandising",
+                      image_url:"https://beermaster.herokuapp.com/style/products/merchandising.jpg"
+                      buttons:[
+                        {
+                          type:"postback",
+                          title:"Ver Merchandising",
+                          payload: JSON.stringify({payload:"SHOW_MERCH", barId: idBar});
+                        }              
+                      ]      
+                    }
+                  ]
+                }
+              }
+            }
+          };  
+
+
+  callSendAPI(messageData); 
+}
+
+
+
+
+
 
 function callSendAPI(messageData) {
   request({
@@ -500,11 +558,20 @@ function receivedPostback(messagingEvent){
                 userStartPostback(senderID, name);
             break;
             case "VIEW_MORE": 
-              sendTextMessage(senderID, "Ver mas del bar " + postBackObject.barId);
+              showBarDetail(senderID, postBackObject.barId);
             ;break;
             case "AGREGAR":
                 userAddsItem(senderID, postBackObject.variedad, postBackObject.precio);
             break;
+            case "SHOW_BEER": 
+              sendTextMessage(senderID, "Ver birra " + postBackObject.barId);
+              ;break;
+            case "SHOW_MERCH": 
+              sendTextMessage(senderID, "Ver merchandising " + postBackObject.barId);
+              ;break;
+            case "SHOW_SNACKS": 
+             sendTextMessage(senderID, "Ver snacks de " + postBackObject.barId);
+              ;break;
           }
      }
 }
