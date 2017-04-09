@@ -48,7 +48,7 @@ app.get('/testCoordinates', function (req, res) {
     });  
 });
 
-
+/*
 app.get('/insertPubs', function (req, res) {
     var newPub = {};
 
@@ -75,7 +75,7 @@ app.get('/checkCarousel', function (req, res) {
               res.send(JSON.stringify(carouselPubs));
           });
       });
-});
+}); */
 
 
 
@@ -315,11 +315,13 @@ function userStartPostback(senderID, userName){
           {
             content_type:"text",
             title:"Bares Patagonia",
+            image_url:"https://beermaster.herokuapp.com/style/patagonia.png",
             payload:"SEARCH_PATAGONIA_POINTS"
           },
           {
             content_type:"text",
             title:"Cervezas Patagonia",
+            image_url:"https://beermaster.herokuapp.com/style/beers.png",
             payload:"SEARCH_PATAGONIA_BEERS"
           }
         ]
@@ -592,37 +594,35 @@ function callSendAPI(messageData) {
 // Api.ai 
 
 function analyzeMessage(senderID, messageText){
-  var botResponse;
-
-    switch(messageText){
-      case "qr":
-        testQR(senderID);
-      break;
-      case "location":
-        shareLocation(senderID, "Para buscar cervezas cerca necesitamos conocer tu ubicación, puedes pasarnos una direccion o simplemente oprimir en 'Enviar ubicación.'");
-      break;
-      case "menu":
-        askMenu(senderID, 2);
-      break;
-      case "recibo":
-        userGetsReceipt(senderID);
-      break;
-      default:
-        var botRequest = botApp.textRequest(messageText, botOptions);
+          var botRequest = botApp.textRequest(messageText, botOptions);
           botRequest.on('response', function(response) {
-            console.log("BOT RESPONSE: ");
-            console.log(botResponse);
-            sendTextMessage(senderID, response.result.fulfillment.speech);
-            // prueba 
-            console.log(response.result);
-        });
+              var action = response.result.action;   
+
+              switch(action){
+                 case "input_welcome": 
+                    var userPromise = userController.getUser(senderID);
+                    userPromise.then(function(user){
+                            if(!user){
+                              userController.getFBInformation(senderID, function(userData){
+                                  userController.insertUser({id: senderID, nombre : userData.first_name, apellido: userData.last_name, fotoPerfil: userData.profile_pic, genero: userData.gender , zona: userData.locale });
+                                  userStartPostback(senderID, userData.first_name);
+                              });
+                            }else{
+                                userStartPostback(senderID, user.nombre);
+                            }
+                    });
+                 ;break;
+                 default: 
+                   sendTextMessage(senderID, response.result.fulfillment.speech);
+                 ;break;
+              }
+          });
 
         botRequest.on('error', function(error) {
             console.log(error);
         });
 
         botRequest.end();
-    }
 }
 
 
@@ -636,24 +636,24 @@ function receivedPostback(messagingEvent){
       }
 
       var senderID = messagingEvent.sender.id;
-      var userPromise = userController.getUser(senderID);
-      userPromise.then(function(user){
-              if(!user){
-                userController.getFBInformation(senderID, function(userData){
-                    userController.insertUser({id: senderID, nombre : userData.first_name, apellido: userData.last_name, fotoPerfil: userData.profile_pic, genero: userData.gender , zona: userData.locale });
-                    analizePayloads(userData.first_name);
-                });
-              }else{
-                  analizePayloads(user.nombre);
-              }
-      });
+      
 
 
 
     function analizePayloads(name){
          switch(postBackObject.payload){
             case "USER_START":
-                userStartPostback(senderID, name);
+                var userPromise = userController.getUser(senderID);
+                userPromise.then(function(user){
+                        if(!user){
+                          userController.getFBInformation(senderID, function(userData){
+                              userController.insertUser({id: senderID, nombre : userData.first_name, apellido: userData.last_name, fotoPerfil: userData.profile_pic, genero: userData.gender , zona: userData.locale });
+                              userStartPostback(senderID, userData.first_name);
+                          });
+                        }else{
+                            userStartPostback(senderID, user.nombre);
+                        }
+                });
             break;
             case "VIEW_MORE": 
               showBarDetail(senderID, postBackObject.barId);
