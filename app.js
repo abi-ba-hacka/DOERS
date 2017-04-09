@@ -612,6 +612,9 @@ function analyzeMessage(senderID, messageText){
                             }
                     });
                  ;break;
+                 case "obtain_receipt":
+                    userGetsReceipt(senderID);
+                ;break;
                  default: 
                    sendTextMessage(senderID, response.result.fulfillment.speech);
                  ;break;
