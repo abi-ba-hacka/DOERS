@@ -628,7 +628,7 @@ function analyzeMessage(senderID, messageText){
 
 function receivedPostback(messagingEvent){
       var postBackObject = {};
-
+      console.log("recibi postback:");
       try {
          postBackObject =  JSON.parse(messagingEvent.postback.payload);
       } catch (e) {
@@ -674,6 +674,8 @@ function receivedPostback(messagingEvent){
             case "SHOW_SNACKS": 
              sendTextMessage(senderID, "Ver snacks de " + postBackObject.barId);
               ;break;
+
+
           }
      }
 }
