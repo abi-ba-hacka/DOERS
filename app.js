@@ -373,7 +373,7 @@ function sendReceipt(senderID, itemPedidosList) {
 
       for(var i = 0; i < itemPedidosList.length; i++)
       {
-        var itemToAdd = {nom = itemPedidosList[i].variedad, costoCat = itemPedidosList[i].precio};
+        var itemToAdd = {nom : itemPedidosList[i].variedad, costoCat : itemPedidosList[i].precio};
         console.log("voy a testear con " + itemToAdd);
         consumoCategoria.indexOf(itemToAdd) === -1 ? consumoCategoria.push(itemToAdd) : console.log(consumoCategoria.indexOf(itemToAdd));
         total.total_cost += parseFloat(itemPedidosList[i].precio);
