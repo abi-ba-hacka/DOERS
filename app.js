@@ -632,6 +632,7 @@ function receivedPostback(messagingEvent){
       try {
          postBackObject =  JSON.parse(messagingEvent.postback.payload);
       } catch (e) {
+        console.log("me quede en el catch");
          postBackObject.payload = messagingEvent.postback.payload;
       }
 
@@ -664,7 +665,8 @@ function receivedPostback(messagingEvent){
                 userAddsItem(senderID, postBackObject.variedad, postBackObject.precio, postBackObject.url);
             ;break;
             case "SHOW_BEER": 
-              beerMenu(senderID, postBackObject.barId);
+             // beerMenu(senderID, postBackObject.barId);
+             sendTextMessage(senderID, "ver birra" + postBackObject.barId);
               ;break;
             case "SHOW_MERCH": 
               sendTextMessage(senderID, "Ver merchandising " + postBackObject.barId);
