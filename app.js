@@ -314,11 +314,13 @@ function userStartPostback(senderID, userName){
           {
             content_type:"text",
             title:"Bares Patagonia",
+            image_url:"https://beermaster.herokuapp.com/style/patagonia.png",
             payload:"SEARCH_PATAGONIA_POINTS"
           },
           {
             content_type:"text",
             title:"Cervezas Patagonia",
+            image_url:"https://beermaster.herokuapp.com/style/beers.png",
             payload:"SEARCH_PATAGONIA_BEERS"
           }
         ]
