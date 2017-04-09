@@ -67,6 +67,15 @@ app.get('/insertPubs', function (req, res) {
 
 
 
+app.get('/checkCarousel', function (req, res) {
+   var promise = pubController.getAll();
+      promise.then(function(pubs){
+      carouselController.getPubsToCarouselElement(pubs, function(carouselPubs){
+              res.send(JSON.stringify(carouselPubs));
+          });
+      });
+});
+
 
 
 /*********************************************************************************/
@@ -458,7 +467,7 @@ function sendPointList(senderID){
   var promise = pubController.getAll();
 
   promise.then(function(pubs){
-      carouselController.getPubsToCarouselElement(pubs, function(carouselPubs){
+      carouselController.getPubsToCarouselElement(pubs,function(carouselPubs){
           messageData.message.attachment.payload.elements = carouselPubs;
       });
   });

@@ -3,8 +3,8 @@ module.exports = {
 			getPubsToCarouselElement: function(pubs, callback){
 				var postbackObject = { payload: "VIEW_MORE", barId: "" };
 				var carouselItems = [];
-				var carouselItem = {buttons:[]};
 				for (var i = 0; i < (pubs.length / 2); i++) {
+					var carouselItem = {buttons:[]};
 					postbackObject.barId = pubs[i].id;
 					carouselItem.title = pubs[i].name;
 					carouselItem.subtitle = pubs[i].direction + "\n" +  pubs[i].availableTime ;
