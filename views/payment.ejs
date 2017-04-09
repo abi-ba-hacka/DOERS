@@ -42,7 +42,7 @@
         </div>
       </div>
   </form>
-  <button type="button" class="btn btn-primary">Pagar</button>
+  <button type="button" class="btn btn-primary" id="paymentButton">Pagar</button>
 
   
 
@@ -52,12 +52,23 @@
     <script src="style/js/bootstrap.min.js"></script>
     <script>
       window.extAsyncInit = function() {
+      document.getElementById("paymentButton").addEventListener("click",function(){ 
+            MessengerExtensions.requestCloseBrowser(function success() {
+                    console.log("Cerrar browser");
+                }, function error(err) {
+                    console.log("Fallo cerrar browser");
+                    console.log(err)
+                });
+        });
+
           MessengerExtensions.getUserID(function success(uids) {
           // User ID was successfully obtained. 
             var psid = uids.psid;
             console.log(psid);
           }, function error(err, errorMessage) {      
               console.log("error al consegui usuario");
+              console.log(err);
+              console.log(errorMessage);
           }); 
 
         console.log("Done  Loading");
