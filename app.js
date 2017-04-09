@@ -593,8 +593,6 @@ function callSendAPI(messageData) {
 // Api.ai 
 
 function analyzeMessage(senderID, messageText){
-
-    switch(messageText){
           var botRequest = botApp.textRequest(messageText, botOptions);
           botRequest.on('response', function(response) {
               var action = response.result.action;   
@@ -624,7 +622,6 @@ function analyzeMessage(senderID, messageText){
         });
 
         botRequest.end();
-    }
 }
 
 
