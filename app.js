@@ -12,6 +12,7 @@ const
   pedidoController = require('./controllers/pedidoController'),
   pubController = require('./controllers/pubController'),
   carouselController = require('./controllers/carouselController'),
+  beerController = require('./daos/beerDao'),
   itemPedidoController = require('./daos/pedidoItemDao'),
   googleMapController = require('./controllers/googleMapController');
 
@@ -693,80 +694,82 @@ function askMenu(senderID, local) {
       }
     }
   };  
+    beerController.getBeerPerLocal(local ,function(beer){
+      console.log("obtuve " + beer);
+    });
+    postbackObject.variedad = "Patagonia Amber Lager";
+    postbackObject.precio = "68";
+    postbackObject.url = "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-Amber-Larger-1000x1467_1024x1024_10b329a6-d70d-4408-b697-343e841337ff_1024x1024.png?v=1465834626";
 
-  postbackObject.variedad = "Patagonia Amber Lager";
-  postbackObject.precio = "68";
-  postbackObject.url = "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-Amber-Larger-1000x1467_1024x1024_10b329a6-d70d-4408-b697-343e841337ff_1024x1024.png?v=1465834626";
+    messageData.message.attachment.payload.elements.push({
+          title: "Patagonia Amber Lager",
+          subtitle: "$68",  
+          image_url: postbackObject.url,
+          buttons: [{
+                     type: "postback",
+                     title: "Agregar Item",
+                     payload: JSON.stringify(postbackObject)
+                    }]
+    });
 
-  messageData.message.attachment.payload.elements.push({
-        title: "Patagonia Amber Lager",
-        subtitle: "$68",  
-        image_url: postbackObject.url,
-        buttons: [{
-                   type: "postback",
-                   title: "Agregar Item",
-                   payload: JSON.stringify(postbackObject)
-                  }]
-  });
+    postbackObject.variedad = "Patagonia Bohemian Pilsener";
+    postbackObject.precio = "68";
+    postbackObject.url = "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-B-Pilsener-1000x1467_1024x1024.png?v=1465834640";
 
-  postbackObject.variedad = "Patagonia Bohemian Pilsener";
-  postbackObject.precio = "68";
-  postbackObject.url = "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-B-Pilsener-1000x1467_1024x1024.png?v=1465834640";
+    messageData.message.attachment.payload.elements.push({
+          title: "Patagonia Bohemian Pilsener",  
+          subtitle: "$68",
+          image_url: postbackObject.url,
+          buttons: [{
+                     type: "postback",
+                     title: "Agregar Item",
+                     payload: JSON.stringify(postbackObject)
+                    }]
+    });
+    postbackObject.variedad = "Patagonia Küné";
+    postbackObject.precio = "58";
+    postbackObject.url = "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-Kune-1000x1467_987808b4-187e-4a71-a7f3-fd05793467c7_1024x1024.png?v=1465834661";
 
-  messageData.message.attachment.payload.elements.push({
-        title: "Patagonia Bohemian Pilsener",  
-        subtitle: "$68",
-        image_url: postbackObject.url,
-        buttons: [{
-                   type: "postback",
-                   title: "Agregar Item",
-                   payload: JSON.stringify(postbackObject)
-                  }]
-  });
-  postbackObject.variedad = "Patagonia Küné";
-  postbackObject.precio = "58";
-  postbackObject.url = "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-Kune-1000x1467_987808b4-187e-4a71-a7f3-fd05793467c7_1024x1024.png?v=1465834661";
+    messageData.message.attachment.payload.elements.push({
+          title: "Patagonia Küné",  
+          subtitle: "$58",
+          image_url: postbackObject.url,
+          buttons: [{
+                     type: "postback",
+                     title: "Agregar Item",
+                     payload: JSON.stringify(postbackObject)
+                    }]
+    });
 
-  messageData.message.attachment.payload.elements.push({
-        title: "Patagonia Küné",  
-        subtitle: "$58",
-        image_url: postbackObject.url,
-        buttons: [{
-                   type: "postback",
-                   title: "Agregar Item",
-                   payload: JSON.stringify(postbackObject)
-                  }]
-  });
+    postbackObject.variedad = "Patagonia Weisse";
+    postbackObject.precio = "68";
+    postbackObject.url = "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-Kune-1000x1467_987808b4-187e-4a71-a7f3-fd05793467c7_1024x1024.png?v=1465834661";
 
-  postbackObject.variedad = "Patagonia Weisse";
-  postbackObject.precio = "68";
-  postbackObject.url = "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-Kune-1000x1467_987808b4-187e-4a71-a7f3-fd05793467c7_1024x1024.png?v=1465834661";
+    messageData.message.attachment.payload.elements.push({
+          title: "Patagonia Weisse",  
+          subtitle: "$68",
+          image_url: "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-Weisse-1000x1467_1024x1024.png?v=1465834681" ,
+          buttons: [{
+                     type: "postback",
+                     title: "Agregar Item",
+                     payload: JSON.stringify(postbackObject)
+                    }]
+    });
 
-  messageData.message.attachment.payload.elements.push({
-        title: "Patagonia Weisse",  
-        subtitle: "$68",
-        image_url: "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-Weisse-1000x1467_1024x1024.png?v=1465834681" ,
-        buttons: [{
-                   type: "postback",
-                   title: "Agregar Item",
-                   payload: JSON.stringify(postbackObject)
-                  }]
-  });
+    postbackObject.variedad = "Patagonia 24.7 - Session IPA con Sauco";
+    postbackObject.precio = "58";
+    postbackObject.url = "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-24-7-1000x1467_1024x1024.jpg?v=1483734202";
 
-  postbackObject.variedad = "Patagonia 24.7 - Session IPA con Sauco";
-  postbackObject.precio = "58";
-  postbackObject.url = "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-24-7-1000x1467_1024x1024.jpg?v=1483734202";
-
-  messageData.message.attachment.payload.elements.push({
-        title: "Patagonia 24.7 - Session IPA con Sauco",  
-        subtitle: "$58",
-        image_url: postbackObject.url ,
-        buttons: [{
-                   type: "postback",
-                   title: "Agregar Item",
-                   payload: JSON.stringify(postbackObject)
-                  }]
-  });
+    messageData.message.attachment.payload.elements.push({
+          title: "Patagonia 24.7 - Session IPA con Sauco",  
+          subtitle: "$58",
+          image_url: postbackObject.url ,
+          buttons: [{
+                     type: "postback",
+                     title: "Agregar Item",
+                     payload: JSON.stringify(postbackObject)
+                    }]
+    });
 
   callSendAPI(messageData);
 }
