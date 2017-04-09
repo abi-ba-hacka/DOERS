@@ -322,9 +322,9 @@ function sendReceipt(senderID, itemPedidosList) {
     console.log("me dieron los datos de fb " + result);
 
       for(var i = 0; i < itemPedidosList.length; i++)
-  {
+      {
         total.total_cost += parseFloat(itemPedidosList[i].precio);
-  }
+      }
   
   var messageData = {
     recipient: {
