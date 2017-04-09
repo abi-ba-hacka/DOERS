@@ -16,10 +16,10 @@ module.exports  =  {
 							    console.log("Snack Saved Successfully");
 							  });  
 					},
-		getSnacksByBarId: function(barId){
-				return Snack.find({'pubId': barId}, function(err, snacks){
+		getSnacksByBarId: function(barId, callback){
+				 Snack.find({'pubId': barId}, function(err, snacks){
 		              if (err) return console.error(err);
-		              		return snacks;          
+		              		callback(snacks);          
 		        });
 		},
 		getAll: function(){
