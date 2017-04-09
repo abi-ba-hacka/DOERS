@@ -631,19 +631,14 @@ function receivedPostback(messagingEvent){
       console.log("recibi postback:" + JSON.stringify(messagingEvent.postback.payload));
       console.log("que tiene el payload " + messagingEvent.postback.payload);
       try {
-         postBackObject =  messagingEvent.postback.payload;
+         postBackObject =  JSON.parse(messagingEvent.postback.payload);
       } catch (e) {
         console.log("me quede en el catch");
-         postBackObject = messagingEvent.postback.payload;
+         postBackObject.payload = messagingEvent.postback.payload;
       }
 
       var senderID = messagingEvent.sender.id;
       
-
-
-
-    function analizePayloads(name){
-      console.log("analizo las payladsss");
          switch(postBackObject.payload){
             case "USER_START":
                 var userPromise = userController.getUser(senderID);
@@ -678,7 +673,7 @@ function receivedPostback(messagingEvent){
 
 
           }
-     }
+     
 }
 
 function beerMenu(senderID, local) {
