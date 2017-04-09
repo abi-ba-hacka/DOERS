@@ -355,6 +355,28 @@ function sendReceipt(senderID, itemPedidosList) {
      });
   }
   callSendAPI(messageData);
+
+  sendTextMessage(senderID, "Acercate al bar con el código QR, y disfruta de la experiencia Patagonia de una forma más ágil!");
+
+  var qr_svg = qr.image('I love QR!', { type: 'png' });
+  qr_svg.pipe(require('fs').createWriteStream('./style/i_love_qr.png'));
+  var svg_string = qr.imageSync('I love QR!', { type: 'png' });
+
+  var messageData = {
+    recipient: {
+      id: senderID
+    },
+    message: {
+        attachment:{
+          type: "image",
+          payload:{
+            url: "https://beermaster.herokuapp.com/style/i_love_qr.png"
+          }
+        }
+    }
+  };
+  callSendAPI(messageData);
+
   });
 
 }
