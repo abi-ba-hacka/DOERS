@@ -57,6 +57,7 @@
                     console.log("Cerrar browser");
                 }, function error(err) {
                     console.log("Fallo cerrar browser");
+                    console.log(err)
                 });
         });
 
@@ -66,6 +67,8 @@
             console.log(psid);
           }, function error(err, errorMessage) {      
               console.log("error al consegui usuario");
+              console.log(err);
+              console.log(errorMessage);
           }); 
 
         console.log("Done  Loading");
