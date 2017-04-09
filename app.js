@@ -860,7 +860,7 @@ function snackMenu(senderID, barId) {
 function merchaMenu(senderID, barId) {
    var pubPromise = pubController.getPubById(barId);
     pubPromise.then(function(bar){
-      sendTextMessage(senderID, "Estos son algunos de los objetos curiosos de " + bar.name);
+      sendTextMessage(senderID, "Estos son algunos de los objetos que te ofrecemos para mejorar tu experiencia Patagonia en " + bar.name);
       var postbackObject = { payload: "AGREGAR", variedad: "", precio: "" , url: ""};
       var messageData = {
         recipient: {
