@@ -373,7 +373,7 @@ function sendReceipt(senderID, itemPedidosList) {
 
       for(var i = 0; i < itemPedidosList.length; i++)
       {
-        var itemToAdd = {nom : itemPedidosList[i].variedad, costoCat : itemPedidosList[i].precio};
+        var itemToAdd = {nom : itemPedidosList[i].variedad, costoCat : parseFloat(itemPedidosList[i].precio)};
         var posi = consumoCategoria.map(function(e) { return e.nom; }).indexOf(itemToAdd.nom);
         console.log("voy a testear con " + JSON.stringify(itemToAdd));
         console.log("posi " + posi);
