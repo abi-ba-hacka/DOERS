@@ -483,7 +483,7 @@ function showBarDetail(senderID, idBar){
           elements: [
                      {
                       title:"Cervezas",
-                      image_url:"https://beermaster.herokuapp.com/style/products/cervezas.jpeg"
+                      image_url:"https://beermaster.herokuapp.com/style/products/cervezas.jpeg",
                       buttons:[
                         {
                           type:"postback",
@@ -494,7 +494,7 @@ function showBarDetail(senderID, idBar){
                     },
                     {
                       title:"Snacks",
-                      image_url:"https://beermaster.herokuapp.com/style/products/snacks.jpeg"
+                      image_url:"https://beermaster.herokuapp.com/style/products/snacks.jpeg",
                       buttons:[
                         {
                           type:"postback",
@@ -505,7 +505,7 @@ function showBarDetail(senderID, idBar){
                     },
                     {
                       title:"Merchandising",
-                      image_url:"https://beermaster.herokuapp.com/style/products/merchandising.jpg"
+                      image_url:"https://beermaster.herokuapp.com/style/products/merchandising.jpg",
                       buttons:[
                         {
                           type:"postback",
