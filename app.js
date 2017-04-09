@@ -7,6 +7,7 @@ const
   request = require('request'),
   mongoose = require('mongoose'),
   apiai = require('apiai'),
+  qr = require('qr-image'),
   userController = require('./daos/userDao'),
   pedidoController = require('./controllers/pedidoController'),
   pubController = require('./controllers/pubController'),
@@ -312,15 +313,38 @@ function userStartPostback(senderID, userName){
 
   callSendAPI(messageData);
 }
+function testQR(senderID) {
+  var qr_svg = qr.image('I love QR!', { type: 'png' });
+  qr_svg.pipe(require('fs').createWriteStream('./style/i_love_qr.png'));
+  var svg_string = qr.imageSync('I love QR!', { type: 'png' });
 
-function sendReceipt(senderID, itemPedidosList) {
+  var messageData = {
+    recipient: {
+      id: senderID
+    },
+    message: {
+        attachment:{
+          type: "image",
+          payload:{
+            url: "https://beermaster.herokuapp.com/style/i_love_qr.png"
+          }
+        }
+    }
+  };
+  callSendAPI(messageData);
+}
+
+function sendReceipt(senderID, itemPedidosList, callback) {
   console.log("generando el recibo pa");
   var total = {total_cost: 0};
+  var userDataPromise = userController.getUser(senderID);
+  userDataPromise.then(function(result){
+    console.log("me dieron los datos de fb " + result);
 
-  for(var i = 0; i < itemPedidosList.length; i++)
-  {
+      for(var i = 0; i < itemPedidosList.length; i++)
+    {
         total.total_cost += parseFloat(itemPedidosList[i].precio);
-  }
+      }
   
   var messageData = {
     recipient: {
@@ -331,7 +355,7 @@ function sendReceipt(senderID, itemPedidosList) {
         type: "template",
         payload: {
           template_type: "receipt",
-          recipient_name: "Federico Pérez",
+          recipient_name: result.apellido + ", " + result.nombre,
           order_number: "12314123",
           currency: "ARS",
           payment_method: "VISA 5494",
@@ -346,32 +370,66 @@ function sendReceipt(senderID, itemPedidosList) {
   {
      messageData.message.attachment.payload.elements.push({
         title: itemPedidosList[i].variedad,
-        price: itemPedidosList[i].precio
+        price: itemPedidosList[i].precio,
+        image_url: itemPedidosList[i].url
      });
   }
   callSendAPI(messageData);
-}
 
+
+  });
+    callback(1);
+}
 
 function userGetsReceipt(senderID) {
     console.log("generate receipt");
-    var promise = itemPedidoController.getItemPedido(senderID);
-    promise.then(function(result){
+    var itemPedidoPromise = itemPedidoController.getItemPedido(senderID);
+    itemPedidoPromise.then(function(result){
        console.log("encontre los siguientes items pedidos " + result);
        for(var i = 0; i < result.length; i++)
        {
           console.log("Adquiriste una " + result[i].variedad + " a $" + result[i].precio);
        }
 
-       sendReceipt(senderID, result);
+       sendReceipt(senderID, result, function(result){
+        if(result == 1){
+           sendTextMessage(senderID, "Acercate al bar con el código QR, y disfruta de la experiencia Patagonia de una forma más ágil!");
+
+            var qr_svg = qr.image('I love QR!', { type: 'png' });
+            qr_svg.pipe(require('fs').createWriteStream('./style/i_love_qr.png'));
+            var svg_string = qr.imageSync('I love QR!', { type: 'png' });
+
+            var messageDataQR = {
+              recipient: {
+                id: senderID
+              },
+              message: {
+                  attachment:{
+                    type: "image",
+                    payload:{
+                      url: "https://beermaster.herokuapp.com/style/i_love_qr.png"
+                    }
+                  }
+              }
+            };
+
+            callSendAPI(messageDataQR); 
+          }
+          else{
+            sendTextMessage(senderID, "Parece que hubo un problema para generar tu recibo... lamentamos el inconveniente!");
+          }
+       });
+
+
     });
 }
 
-function userAddsItem(senderID, variedad, precio) {
+function userAddsItem(senderID, variedad, precio, url) {
+  console.log("LLEGO LA URL " + url);
     pedidoController.insertPedido({ userId:senderID}, function(resultado) {
       console.log("obtuve el siguiente resultado de la insert: " + resultado);
 
-      itemPedidoController.insertarItemPedido({ userId: resultado.userId,  variedad: variedad, precio: precio});
+      itemPedidoController.insertarItemPedido({ userId: resultado.userId,  variedad: variedad, precio: precio, url: url});
 
       var messageData = {
         recipient: {
@@ -469,9 +527,6 @@ function showBarDetail(senderID, idBar){
 
 
 
-
-
-
 function callSendAPI(messageData) {
   request({
     uri: 'https://graph.facebook.com/v2.6/me/messages',
@@ -504,6 +559,9 @@ function analyzeMessage(senderID, messageText){
   var botResponse;
 
     switch(messageText){
+      case "qr":
+        testQR(senderID);
+      break;
       case "location":
         shareLocation(senderID, "Para buscar cervezas cerca necesitamos conocer tu ubicación, puedes pasarnos una direccion o simplemente oprimir en 'Enviar ubicación.'");
       break;
@@ -538,8 +596,8 @@ function analyzeMessage(senderID, messageText){
 function receivedPostback(messagingEvent){
     var postBackObject = JSON.parse(messagingEvent.postback.payload);
     var senderID = messagingEvent.sender.id;
-
-     userController.getUser(senderID, function(user){
+    var userPromise = userController.getUser(senderID);
+    userPromise.then(function(user){
             if(!user){
               userController.getFBInformation(senderID, function(userData){
                   userController.insertUser({id: senderID, nombre : userData.first_name, apellido: userData.last_name, fotoPerfil: userData.profile_pic, genero: userData.gender , zona: userData.locale });
@@ -548,7 +606,7 @@ function receivedPostback(messagingEvent){
             }else{
                 analizePayloads(user.nombre);
             }
-    });
+  });
 
 
 
@@ -561,7 +619,7 @@ function receivedPostback(messagingEvent){
               showBarDetail(senderID, postBackObject.barId);
             ;break;
             case "AGREGAR":
-                userAddsItem(senderID, postBackObject.variedad, postBackObject.precio);
+                userAddsItem(senderID, postBackObject.variedad, postBackObject.precio, postBackObject.url);
             break;
             case "SHOW_BEER": 
               sendTextMessage(senderID, "Ver birra " + postBackObject.barId);
@@ -578,7 +636,7 @@ function receivedPostback(messagingEvent){
 
 function askMenu(senderID, local) {
   sendTextMessage(senderID, "Te doy estas opciones para el punto Patagonia elegido!");
-  var postbackObject = { payload: "AGREGAR", variedad: "", precio: "" };
+  var postbackObject = { payload: "AGREGAR", variedad: "", precio: "" , url: ""};
   var messageData = {
     recipient: {
       id: senderID
@@ -594,11 +652,14 @@ function askMenu(senderID, local) {
     }
   };  
 
-  postbackObject.variedad = "Amber Lager";
+  postbackObject.variedad = "Patagonia Amber Lager";
   postbackObject.precio = "68";
+  postbackObject.url = "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-Amber-Larger-1000x1467_1024x1024_10b329a6-d70d-4408-b697-343e841337ff_1024x1024.png?v=1465834626";
+
   messageData.message.attachment.payload.elements.push({
-        title: "Amber Lager",  
-        image_url: "https://beermaster.herokuapp.com/style/AmberLager.png" ,
+        title: "Patagonia Amber Lager",
+        subtitle: "$68",  
+        image_url: postbackObject.url,
         buttons: [{
                    type: "postback",
                    title: "Agregar Item",
@@ -606,11 +667,14 @@ function askMenu(senderID, local) {
                   }]
   });
 
-  postbackObject.variedad = "Bohemian Pilsener";
+  postbackObject.variedad = "Patagonia Bohemian Pilsener";
   postbackObject.precio = "68";
+  postbackObject.url = "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-B-Pilsener-1000x1467_1024x1024.png?v=1465834640";
+
   messageData.message.attachment.payload.elements.push({
-        title: "Bohemian Pilsener",  
-        image_url: "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-B-Pilsener-1000x1467_1024x1024.png?v=1465834640" ,
+        title: "Patagonia Bohemian Pilsener",  
+        subtitle: "$68",
+        image_url: postbackObject.url,
         buttons: [{
                    type: "postback",
                    title: "Agregar Item",
@@ -619,9 +683,42 @@ function askMenu(senderID, local) {
   });
   postbackObject.variedad = "Patagonia Küné";
   postbackObject.precio = "58";
+  postbackObject.url = "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-Kune-1000x1467_987808b4-187e-4a71-a7f3-fd05793467c7_1024x1024.png?v=1465834661";
+
   messageData.message.attachment.payload.elements.push({
         title: "Patagonia Küné",  
-        image_url: "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-Kune-1000x1467_987808b4-187e-4a71-a7f3-fd05793467c7_1024x1024.png?v=1465834661" ,
+        subtitle: "$58",
+        image_url: postbackObject.url,
+        buttons: [{
+                   type: "postback",
+                   title: "Agregar Item",
+                   payload: JSON.stringify(postbackObject)
+                  }]
+  });
+
+  postbackObject.variedad = "Patagonia Weisse";
+  postbackObject.precio = "68";
+  postbackObject.url = "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-Kune-1000x1467_987808b4-187e-4a71-a7f3-fd05793467c7_1024x1024.png?v=1465834661";
+
+  messageData.message.attachment.payload.elements.push({
+        title: "Patagonia Weisse",  
+        subtitle: "$68",
+        image_url: "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-Weisse-1000x1467_1024x1024.png?v=1465834681" ,
+        buttons: [{
+                   type: "postback",
+                   title: "Agregar Item",
+                   payload: JSON.stringify(postbackObject)
+                  }]
+  });
+
+  postbackObject.variedad = "Patagonia 24.7 - Session IPA con Sauco";
+  postbackObject.precio = "58";
+  postbackObject.url = "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-24-7-1000x1467_1024x1024.jpg?v=1483734202";
+
+  messageData.message.attachment.payload.elements.push({
+        title: "Patagonia 24.7 - Session IPA con Sauco",  
+        subtitle: "$58",
+        image_url: postbackObject.url ,
         buttons: [{
                    type: "postback",
                    title: "Agregar Item",

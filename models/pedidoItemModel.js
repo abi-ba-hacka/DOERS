@@ -8,7 +8,8 @@ var ItemPedidoSchema = new Schema({
 	pedidoId: { type: String },                      
     userId: { type: String},
     variedad: { type: String},
-    precio: { type: String}   
+    precio: { type: String},
+    url: { type: String}   
 }, { collection : 'PedidosItems' })
 
 var ItemPedido = mongoose.model('ItemPedido', ItemPedidoSchema);

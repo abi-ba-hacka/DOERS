@@ -7,7 +7,8 @@ module.exports = {
 							    pedidoId: pedido.userId,                      
 							    userId: pedido.userId,
 							    variedad: pedido.variedad,
-							    precio: pedido.precio 
+							    precio: pedido.precio,
+							    url: pedido.url 
 							  });
 
 							  pedi.save(function(err){
