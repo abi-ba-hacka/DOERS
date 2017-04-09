@@ -661,8 +661,8 @@ function receivedPostback(messagingEvent){
                 userAddsItem(senderID, postBackObject.variedad, postBackObject.precio, postBackObject.url);
             ;break;
             case "SHOW_BEER": 
-             // beerMenu(senderID, postBackObject.barId);
-             sendTextMessage(senderID, "ver birra" + postBackObject.barId);
+             beerMenu(senderID, postBackObject.barId);
+             //sendTextMessage(senderID, "ver birra" + postBackObject.barId);
               ;break;
             case "SHOW_MERCH": 
               sendTextMessage(senderID, "Ver merchandising " + postBackObject.barId);
