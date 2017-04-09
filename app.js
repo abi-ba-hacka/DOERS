@@ -22,7 +22,7 @@ var app = express();
 app.set('port', process.env.PORT || 5000);
 app.set('view engine', 'ejs');
 
-
+app.use(bodyParser.urlencoded({extended: true})); 
 app.use(bodyParser.json({ verify: verifyRequestSignature }));
 app.use(express.static('public'));
 app.use("/style", express.static(__dirname + '/style'));
@@ -51,114 +51,6 @@ app.get('/testCoordinates', function (req, res) {
     });  
 });
 
-
-/*
-app.get('/insertMercha', function (req, res) {
-    var newMercha = {};
-
-   for (var i = 0; i < 10; i++) { 
-      newMercha.id = i;                     
-      newMercha.barId = Math.floor((Math.random() * 10) + 1);
-      newMercha.name= "Growler";
-      newMercha.description= "Growler Patagonia 1,9 litros";
-      newMercha.price = Math.floor((Math.random() * 500) + 100);
-      newMercha.image = "https://beermaster.herokuapp.com/style/growler.jpg"; 
-      merchaController.insertMercha(newMercha);
-    }
-
-   for (var i = 10; i < 21; i++) {
-      newMercha.id =  i ;                     
-      newMercha.barId = Math.floor((Math.random() * 10) + 1);
-      newMercha.name= "Gorra";
-      newMercha.description= "Gorra Marron";
-      newMercha.price = Math.floor((Math.random() * 200) + 100);
-      newMercha.image = "https://beermaster.herokuapp.com/style/gorra_marron.jpg"; 
-      merchaController.insertMercha(newMercha);
-    } 
-
-
-    for (var i = 20; i < 31; i++) {
-      newMercha.id = i ;                     
-      newMercha.barId = Math.floor((Math.random() * 10) + 1);
-      newMercha.name= "Gorra";
-      newMercha.description= "Gorra Verde";
-      newMercha.price = Math.floor((Math.random() * 200) + 100);
-      newMercha.image = "https://beermaster.herokuapp.com/style/gorra_verde.jpg"; 
-      merchaController.insertMercha(newMercha);
-    } 
-
-
-    for (var i = 32; i < 43; i++) {
-      newMercha.id = i ;                     
-      newMercha.barId = Math.floor((Math.random() * 10) + 1);
-      newMercha.name= "Destapador";
-      newMercha.description= "Destapador Patagonia";
-      newMercha.price = Math.floor((Math.random() * 200) + 70);
-      newMercha.image = "https://beermaster.herokuapp.com/style/destapador.jpg"; 
-
-      merchaController.insertMercha(newMercha);
-    } 
-
-
-    for (var i = 43; i < 50; i++) {
-        newMercha.id =  i ;                     
-        newMercha.barId = Math.floor((Math.random() * 10) + 1);
-        newMercha.name= "Vaso";
-        newMercha.description= "Vaso Curvo";
-        newMercha.price = Math.floor((Math.random() * 200) + 100);
-        newMercha.image = "https://beermaster.herokuapp.com/style/vaso_curvo.jpg"; 
-        merchaController.insertMercha(newMercha);
-      } 
-
-
-    for (var i = 50; i < 60; i++) {
-        newMercha.id = i ;                     
-        newMercha.barId = Math.floor((Math.random() * 10) + 1);
-        newMercha.name= "Vaso";
-        newMercha.description= "Vaso Wheat";
-        newMercha.price = Math.floor((Math.random() * 200) + 100);
-        newMercha.image = "https://beermaster.herokuapp.com/style/vaso_wheat.png"; 
-        merchaController.insertMercha(newMercha);
-    } 
-
-
-
-
-    res.send("Merchas AGREGADOS"); 
-});
-
-
-
-app.get('/insertPubs', function (req, res) {
-    var newPub = {};
-
-    for (var i = 0; i < 10; i++) {
-      newPub.id =  i  ;                  
-      newPub.name = "Nombre falso " + i;
-      newPub.direction =  "Calle falsa 123";
-      newPub.geoLatLang = " ";
-      newPub.availableTime = "Horario: " + (10 + i) + ":00 a " + "05:00."; 
-      newPub.image = "https://beermaster.herokuapp.com/style/refugio" + i + ".jpeg"
-      newPub.phone_number = "1524549287";
-      pubController.insertPub(newPub);
-    }
-
-    res.send("Pubs creados"); 
-});
-
-
-
-app.get('/checkCarousel', function (req, res) {
-   var promise = pubController.getAll();
-      promise.then(function(pubs){
-      carouselController.getPubsToCarouselElement(pubs, function(carouselPubs){
-              res.send(JSON.stringify(carouselPubs));
-          });
-      });
-}); */
-
-
-
 /*********************************************************************************/
 app.get('/paymentGateway', function (req, res) {
     res.render('payment'); 
@@ -179,6 +71,12 @@ app.get('/Help', function (req, res) {
 app.get('/', function (req, res) {
     res.send('Welcome to the Beer Master! ');
 });
+
+app.post('/showRecibo', function(req, res) {
+    var senderId = req.body.name;
+});
+
+
 
 // App Secret can be retrieved from the App Dashboard
 const APP_SECRET = (process.env.MESSENGER_APP_SECRET) ? 

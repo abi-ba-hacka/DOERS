@@ -51,6 +51,7 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="style/js/bootstrap.min.js"></script>
     <script>
+     var userID = "" ;
       window.extAsyncInit = function() {
       document.getElementById("paymentButton").addEventListener("click",function(){ 
             MessengerExtensions.requestCloseBrowser(function success() {
@@ -64,8 +65,7 @@
           MessengerExtensions.getUserID(function success(uids) {
           // User ID was successfully obtained. 
             var psid = uids.psid;
-            alert("user id: " + psid);
-            console.log(psid);
+            userID = psid;
           }, function error(err, errorMessage) {      
               console.log("error al consegui usuario");
               console.log(err);
