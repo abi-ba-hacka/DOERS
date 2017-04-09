@@ -534,8 +534,8 @@ function askMenu(senderID, local) {
   postbackObject.variedad = "Patagonia Amber Lager";
   postbackObject.precio = "68";
   messageData.message.attachment.payload.elements.push({
-        title: "Amber Lager",  
-        image_url: "https://beermaster.herokuapp.com/style/AmberLager.png" ,
+        title: "Patagonia Amber Lager",  
+        image_url: "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-Amber-Larger-1000x1467_1024x1024_10b329a6-d70d-4408-b697-343e841337ff_1024x1024.png?v=1465834626" ,
         buttons: [{
                    type: "postback",
                    title: "Agregar Item",
@@ -546,7 +546,7 @@ function askMenu(senderID, local) {
   postbackObject.variedad = "Patagonia Bohemian Pilsener";
   postbackObject.precio = "68";
   messageData.message.attachment.payload.elements.push({
-        title: "Bohemian Pilsener",  
+        title: "Patagonia Bohemian Pilsener",  
         image_url: "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-B-Pilsener-1000x1467_1024x1024.png?v=1465834640" ,
         buttons: [{
                    type: "postback",
