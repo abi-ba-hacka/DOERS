@@ -53,8 +53,9 @@
     <script>
      var userID = "" ;
 
-     function postRetiro(){
-        $(document).ready(function() {
+      window.extAsyncInit = function() {
+          $( "#paymentButton" ).click(function() {
+              $(document).ready(function() {
                         alert("POST RETIRO!");
                         $.ajax({
                            url:"https://beermaster.herokuapp.com/showRecibo",
@@ -62,24 +63,18 @@
                            dataType: 'jsonp', // Notice! JSONP <-- P (lowercase)
                            success:function(json){
                                alert("Success");
+                               MessengerExtensions.requestCloseBrowser(function success() {
+                                    console.log("Cerrar browser");
+                                }, function error(err) {
+                                    console.log("Fallo cerrar browser");
+                                    console.log(err)
+                                });
                            },
                            error:function(){
                                alert("Error");
                            }      
                         });
-                    });
-      }
-
-
-      window.extAsyncInit = function() {
-          $( "#paymentButton" ).click(function() {
-              postRetiro();    
-              MessengerExtensions.requestCloseBrowser(function success() {
-                    console.log("Cerrar browser");
-                }, function error(err) {
-                    console.log("Fallo cerrar browser");
-                    console.log(err)
-                });
+              });   
           });
 
 
