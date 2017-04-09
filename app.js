@@ -628,13 +628,13 @@ function analyzeMessage(senderID, messageText){
 
 function receivedPostback(messagingEvent){
       var postBackObject = {};
-      console.log("recibi postback:" + JSON.parse(messagingEvent.postback.payload));
+      console.log("recibi postback:" + JSON.stringify(messagingEvent.postback.payload));
       console.log("que tiene el payload " + messagingEvent.postback.payload);
       try {
-         postBackObject.payload =  JSON.parse(messagingEvent.postback.payload);
+         postBackObject =  messagingEvent.postback.payload;
       } catch (e) {
         console.log("me quede en el catch");
-         postBackObject.payload = messagingEvent.postback.payload;
+         postBackObject = messagingEvent.postback.payload;
       }
 
       var senderID = messagingEvent.sender.id;
