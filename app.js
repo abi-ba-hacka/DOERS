@@ -468,11 +468,16 @@ function sendReceipt(senderID, itemPedidosList) {
   console.log("generando el recibo pa");
   var total = {total_cost: 0};
   var userDataPromise = userController.getUser(senderID);
+  var consumoCategoria[] = [{nom = "", costoCat = ""}]
+
   userDataPromise.then(function(result){
     console.log("me dieron los datos de fb " + result);
 
       for(var i = 0; i < itemPedidosList.length; i++)
-    {
+      {
+        var itemToAdd = {nom = itemPedidosList[i].variedad, costoCat = itemPedidosList[i].precio};
+        console.log("voy a testear con " + itemToAdd);
+        consumoCategoria.indexOf(itemToAdd) === -1 ? consumoCategoria.push(itemToAdd) : console.log(consumoCategoria.indexOf(itemToAdd));
         total.total_cost += parseFloat(itemPedidosList[i].precio);
       }
   
@@ -523,9 +528,9 @@ function userGetsReceipt(senderID) {
        sendReceipt(senderID, result);
            sendTextMessage(senderID, "Acercate al bar con el código QR, y disfruta de la experiencia Patagonia de una forma más ágil!");
 
-            var qr_svg = qr.image('I love QR!', { type: 'png' });
-            qr_svg.pipe(require('fs').createWriteStream('./style/i_love_qr.png'));
-            var svg_string = qr.imageSync('I love QR!', { type: 'png' });
+            var qr_svg = qr.image('HackTheWorld!', { type: 'png' });
+            qr_svg.pipe(require('fs').createWriteStream('./style/i_love_hack.png'));
+            var svg_string = qr.imageSync('HackTheWorld!', { type: 'png' });
 
             var messageDataQR = {
               recipient: {
@@ -535,7 +540,7 @@ function userGetsReceipt(senderID) {
                   attachment:{
                     type: "image",
                     payload:{
-                      url: "https://beermaster.herokuapp.com/style/i_love_qr.png"
+                      url: "https://beermaster.herokuapp.com/style/i_love_hack.png"
                     }
                   }
               }
