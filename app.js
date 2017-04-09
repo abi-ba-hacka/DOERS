@@ -57,7 +57,7 @@ app.get('/insertPubs', function (req, res) {
       newPub.direction =  "Calle falsa 123";
       newPub.geoLatLang = " ";
       newPub.availableTime = "Horario: " + (10 + i) + ":00 a " + "05:00."; 
-      newPub.image = "https://beermaster.herokuapp.com/style/bar/refugio " + i + ".png"
+      newPub.image = "https://beermaster.herokuapp.com/style/refugio " + i + ".png"
       newPub.phone_number = "1524549287";
       pubController.insertPub(newPub);
     }
@@ -487,7 +487,7 @@ function showBarDetail(senderID, idBar){
           elements: [
                      {
                       title:"Cervezas",
-                      image_url:"https://beermaster.herokuapp.com/style/products/cervezas.jpeg",
+                      image_url:"https://beermaster.herokuapp.com/style/cervezas.jpeg",
                       buttons:[
                         {
                           type:"postback",
@@ -498,7 +498,7 @@ function showBarDetail(senderID, idBar){
                     },
                     {
                       title:"Snacks",
-                      image_url:"https://beermaster.herokuapp.com/style/products/snacks.jpeg",
+                      image_url:"https://beermaster.herokuapp.com/style/snacks.jpeg",
                       buttons:[
                         {
                           type:"postback",
@@ -509,7 +509,7 @@ function showBarDetail(senderID, idBar){
                     },
                     {
                       title:"Merchandising",
-                      image_url:"https://beermaster.herokuapp.com/style/products/merchandising.jpg",
+                      image_url:"https://beermaster.herokuapp.com/style/merchandising.jpg",
                       buttons:[
                         {
                           type:"postback",
