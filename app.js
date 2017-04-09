@@ -331,21 +331,31 @@ function userStartPostback(senderID, userName){
 
 function showMoreResults(senderID){
     var messageData = {
-      recipient: {
-        id: senderID
-      },
-      message: {
-        text:  "Puedes buscar en el mapa para ver mas resultados.",
-        buttons:[
-                    {
-                      type:"web_url",
-                      url:"https://beermaster.herokuapp.com/",
-                      title:"Ver Mapa",
-                      webview_height_ratio: "full" 
+    recipient: {
+      id: senderID
+    },
+    message: {
+      attachment: {
+        type: "template",
+        payload: {
+          template_type: "generic",
+          elements: [
+                     {
+                      subtitle: "¡Si deseas ver mas resultados mira el mapa!",
+                      buttons:[
+                         {
+                            type:"web_url",
+                            url:"https://beermaster.herokuapp.com/",
+                            title:"Ver Mapa",
+                            webview_height_ratio: "full" 
+                        }          
+                      ]      
                     }
                   ]
-      }
-    };
+                }
+              }
+            }
+          };  
 
   callSendAPI(messageData);
 }
