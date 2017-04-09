@@ -159,6 +159,10 @@ app.get('/checkCarousel', function (req, res) {
 
 
 /*********************************************************************************/
+app.get('/paymentGateway', function (req, res) {
+    res.render('payment'); 
+});
+
 // About Aboutpage
 app.get('/About', function (req, res) {
     res.send('About El Maestro Cervecero webpage');
@@ -169,7 +173,6 @@ app.get('/About', function (req, res) {
 app.get('/Help', function (req, res) {
     res.send('Help El Maestro Cervecero webpage');
 });
-
 
 // Server frontpage
 app.get('/', function (req, res) {
@@ -562,7 +565,7 @@ function userAddsItem(senderID, variedad, precio, url) {
                         buttons:[
                             {
                                 type:"web_url",
-                                url:"https://beermaster.herokuapp.com/",
+                                url:"https://beermaster.herokuapp.com/paymentGateway",
                                 title:"Pagar",
                                 webview_height_ratio: "tall"
                             }
