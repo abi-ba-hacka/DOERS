@@ -27,6 +27,7 @@ app.use(bodyParser.json({ verify: verifyRequestSignature }));
 app.use(express.static('public'));
 app.use("/style", express.static(__dirname + '/style'));
 
+
 // MongoDb connection
 mongoose.connect(config.get('connectionString'));
 
