@@ -23,9 +23,9 @@ module.exports  =  {
 		        });
 		},
 		getAll: function(){
-				return Mercha.find(function(err, Merchas) {
+				return Mercha.find(function(err, merchas) {
 				  if (err)  console.error(err);
-				  		return Merchas;
+				  		return merchas;
 				});
 		}
 }

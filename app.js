@@ -860,6 +860,7 @@ function merchaMenu(senderID, barId) {
       };  
 
         merchaController.getMerchaByBarId(barId ,function(merchas){
+          console.log("Merchaaaaa " + merchas.length);
             for(var i = 0; i < merchas.length; i++){
               postbackObject.variedad = merchas[i].description;
               postbackObject.precio = merchas[i].price;
