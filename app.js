@@ -47,7 +47,6 @@ app.get('/testCoordinates', function (req, res) {
     });  
 });
 
-
 /*
 app.get('/insertPubs', function (req, res) {
     var newPub = {};
