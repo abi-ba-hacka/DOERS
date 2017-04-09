@@ -15,6 +15,7 @@ const
   beerController = require('./daos/beerDao'),
   itemPedidoController = require('./daos/pedidoItemDao'),
   snacksController = require('./controllers/snacksController'),
+  merchaController = require('./controllers/merchandisingController'),
   googleMapController = require('./controllers/googleMapController');
 
 var app = express();
@@ -49,59 +50,84 @@ app.get('/testCoordinates', function (req, res) {
     });  
 });
 
+
 /*
-app.get('/insertSnacks', function (req, res) {
-    var newSnack = {};
+app.get('/insertMercha', function (req, res) {
+    var newMercha = {};
 
    for (var i = 0; i < 10; i++) { 
-      newSnack.id = i;                     
-      newSnack.barId = Math.floor((Math.random() * 10) + 1);
-      newSnack.name= "Papas Fritas";
-      newSnack.description= "Combo Fritas " + i;
-      newSnack.price = Math.floor((Math.random() * 200) + 1);
-      newSnack.image = "https://beermaster.herokuapp.com/style/papasFritas.jpeg"; 
-      snacksController.insertSnack(newSnack);
+      newMercha.id = i;                     
+      newMercha.barId = Math.floor((Math.random() * 10) + 1);
+      newMercha.name= "Growler";
+      newMercha.description= "Growler Patagonia 1,9 litros";
+      newMercha.price = Math.floor((Math.random() * 500) + 100);
+      newMercha.image = "https://beermaster.herokuapp.com/style/growler.jpg"; 
+      merchaController.insertMercha(newMercha);
     }
 
    for (var i = 10; i < 21; i++) {
-      newSnack.id =  i ;                     
-      newSnack.barId = Math.floor((Math.random() * 10) + 1);
-      newSnack.name= "Pizza individual";
-      newSnack.description= "Pizza individual: " + i;
-      newSnack.price = Math.floor((Math.random() * 200) + 1);;
-      newSnack.image = "https://beermaster.herokuapp.com/style/pizzaIndividual.jpeg"; 
-      snacksController.insertSnack(newSnack);
+      newMercha.id =  i ;                     
+      newMercha.barId = Math.floor((Math.random() * 10) + 1);
+      newMercha.name= "Gorra";
+      newMercha.description= "Gorra Marron";
+      newMercha.price = Math.floor((Math.random() * 200) + 100);
+      newMercha.image = "https://beermaster.herokuapp.com/style/gorra_marron.jpg"; 
+      merchaController.insertMercha(newMercha);
     } 
 
 
     for (var i = 20; i < 31; i++) {
-      newSnack.id = i ;                     
-      newSnack.barId = Math.floor((Math.random() * 10) + 1);
-      newSnack.name= "Hamburguesa";
-      newSnack.description= "Combo Hamburguesa + "  + i;
-      newSnack.price = Math.floor((Math.random() * 200) + 1);
-      newSnack.image = "https://beermaster.herokuapp.com/style/hamburguesaCasera.jpeg"; 
-      snacksController.insertSnack(newSnack);
+      newMercha.id = i ;                     
+      newMercha.barId = Math.floor((Math.random() * 10) + 1);
+      newMercha.name= "Gorra";
+      newMercha.description= "Gorra Verde";
+      newMercha.price = Math.floor((Math.random() * 200) + 100);
+      newMercha.image = "https://beermaster.herokuapp.com/style/gorra_verde.jpg"; 
+      merchaController.insertMercha(newMercha);
     } 
 
 
     for (var i = 32; i < 43; i++) {
-      newSnack.id = i ;                     
-      newSnack.barId = Math.floor((Math.random() * 10) + 1);
-      newSnack.name= "Nachos";
-      newSnack.description= "Combo Nachos " + i;
-      newSnack.price = Math.floor((Math.random() * 200) + 1);
-      newSnack.image = "https://beermaster.herokuapp.com/style/nachos.jpeg"; 
+      newMercha.id = i ;                     
+      newMercha.barId = Math.floor((Math.random() * 10) + 1);
+      newMercha.name= "Destapador";
+      newMercha.description= "Destapador Patagonia";
+      newMercha.price = Math.floor((Math.random() * 200) + 70);
+      newMercha.image = "https://beermaster.herokuapp.com/style/destapador.jpg"; 
 
-      snacksController.insertSnack(newSnack);
+      merchaController.insertMercha(newMercha);
     } 
 
 
-    res.send("SNACKS AGREGADOS"); 
-});
-*/
+    for (var i = 43; i < 50; i++) {
+        newMercha.id =  i ;                     
+        newMercha.barId = Math.floor((Math.random() * 10) + 1);
+        newMercha.name= "Vaso";
+        newMercha.description= "Vaso Curvo";
+        newMercha.price = Math.floor((Math.random() * 200) + 100);
+        newMercha.image = "https://beermaster.herokuapp.com/style/vaso_curvo.jpg"; 
+        merchaController.insertMercha(newMercha);
+      } 
 
-/*
+
+    for (var i = 50; i < 60; i++) {
+        newMercha.id = i ;                     
+        newMercha.barId = Math.floor((Math.random() * 10) + 1);
+        newMercha.name= "Vaso";
+        newMercha.description= "Vaso Wheat";
+        newMercha.price = Math.floor((Math.random() * 200) + 100);
+        newMercha.image = "https://beermaster.herokuapp.com/style/vaso_wheat.png"; 
+        merchaController.insertMercha(newMercha);
+    } 
+
+
+
+
+    res.send("Merchas AGREGADOS"); 
+});
+
+
+
 app.get('/insertPubs', function (req, res) {
     var newPub = {};
 
@@ -714,13 +740,13 @@ function receivedPostback(messagingEvent){
               showBarDetail(senderID, postBackObject.barId);
             ;break;
             case "AGREGAR":
-                userAddsItem(senderID, postBackObject.variedad, postBackObject.precio, postBackObject.url);
+              userAddsItem(senderID, postBackObject.variedad, postBackObject.precio, postBackObject.url);
             ;break;
             case "SHOW_BEER": 
              beerMenu(senderID, postBackObject.barId);
               ;break;
             case "SHOW_MERCH": 
-              sendTextMessage(senderID, "Ver merchandising " + postBackObject.barId);
+             merchaMenu(senderID, postBackObject.barId);
               ;break;
             case "SHOW_SNACKS": 
               snackMenu(senderID, postBackObject.barId);
@@ -813,7 +839,48 @@ function snackMenu(senderID, barId) {
 }
 
 
+function merchaMenu(senderID, barId) {
+   var pubPromise = pubController.getPubById(barId);
+    pubPromise.then(function(bar){
+      sendTextMessage(senderID, "Estos son algunos de los objetos curiosos de " + bar.name);
+      var postbackObject = { payload: "AGREGAR", variedad: "", precio: "" , url: ""};
+      var messageData = {
+        recipient: {
+          id: senderID
+        },
+        message: {
+          attachment: {
+            type: "template",
+            payload: {
+              template_type: "generic",
+              elements: []
+            }
+          }
+        }
+      };  
 
+        merchaController.getMerchaByBarId(barId ,function(merchas){
+            for(var i = 0; i < merchas.length; i++){
+              postbackObject.variedad = merchas[i].description;
+              postbackObject.precio = merchas[i].price;
+              postbackObject.url = merchas[i].image;
+
+              messageData.message.attachment.payload.elements.push({
+              title: merchas[i].description,
+              subtitle: "Precio: " + merchas[i].price,
+              image_url: merchas[i].image,
+              buttons: [{
+                           type: "postback",
+                           title: "Agregar Item",
+                           payload: JSON.stringify(postbackObject)
+                          }] 
+            });
+          }
+            callSendAPI(messageData);
+        });  
+
+    });
+}
 
 
 
