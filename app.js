@@ -695,9 +695,7 @@ function beerMenu(senderID, local) {
   };  
     beerController.getBeerPerLocal(local ,function(beer){
       console.log("obtuve " + beer);
-    });
-
-    for(var i = 0; i < beer.length; i++){
+      for(var i = 0; i < beer.length; i++){
       messageData.message.attachment.payload.elements.push({
         title: beer[i].description,
         subtitle: beer[i].price,
@@ -708,7 +706,10 @@ function beerMenu(senderID, local) {
                      payload: JSON.stringify(postbackObject)
                     }] 
       });
-    }/*
+    }
+    });
+
+    /*
     postbackObject.variedad = "Patagonia Amber Lager";
     postbackObject.precio = "68";
     postbackObject.url = "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-Amber-Larger-1000x1467_1024x1024_10b329a6-d70d-4408-b697-343e841337ff_1024x1024.png?v=1465834626";
