@@ -641,6 +641,7 @@ function receivedPostback(messagingEvent){
 
 
     function analizePayloads(name){
+      console.log("analizo las payladsss");
          switch(postBackObject.payload){
             case "USER_START":
                 var userPromise = userController.getUser(senderID);
