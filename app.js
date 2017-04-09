@@ -695,18 +695,19 @@ function beerMenu(senderID, local) {
   };  
     beerController.getBeerPerLocal(local ,function(beer){
       console.log("obtuve " + beer);
-      for(var i = 0; i < beer.length; i++){
-      messageData.message.attachment.payload.elements.push({
-        title: beer[i].description,
-        subtitle: beer[i].price,
-        image_url: beer[i].image,
-        buttons: [{
-                     type: "postback",
-                     title: "Agregar Item",
-                     payload: JSON.stringify(postbackObject)
-                    }] 
-      });
-    }
+        for(var i = 0; i < beer.length; i++){
+        messageData.message.attachment.payload.elements.push({
+          title: beer[i].description,
+          subtitle: beer[i].price,
+          image_url: beer[i].image,
+          buttons: [{
+                       type: "postback",
+                       title: "Agregar Item",
+                       payload: JSON.stringify(postbackObject)
+                      }] 
+        });
+      }
+        callSendAPI(messageData);
     });
 
     /*
@@ -784,7 +785,7 @@ function beerMenu(senderID, local) {
                     }]
     });*/
 
-  callSendAPI(messageData);
+
 }
 
 // Start server
