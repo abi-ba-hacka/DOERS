@@ -314,7 +314,7 @@ function testQR(senderID) {
   callSendAPI(messageData);
 }
 
-function sendReceipt(senderID, itemPedidosList) {
+function sendReceipt(senderID, itemPedidosList, callback) {
   console.log("generando el recibo pa");
   var total = {total_cost: 0};
   var userDataPromise = userController.getUser(senderID);
@@ -355,7 +355,7 @@ function sendReceipt(senderID, itemPedidosList) {
      });
   }
   callSendAPI(messageData);
-
+  callback(1)
 
 
   });
@@ -371,28 +371,36 @@ function userGetsReceipt(senderID) {
           console.log("Adquiriste una " + result[i].variedad + " a $" + result[i].precio);
        }
 
-       sendReceipt(senderID, result);
+       sendReceipt(senderID, result, function(result){
+        if(result == 1){
+           sendTextMessage(senderID, "Acercate al bar con el código QR, y disfruta de la experiencia Patagonia de una forma más ágil!");
 
-         sendTextMessage(senderID, "Acercate al bar con el código QR, y disfruta de la experiencia Patagonia de una forma más ágil!");
+            var qr_svg = qr.image('I love QR!', { type: 'png' });
+            qr_svg.pipe(require('fs').createWriteStream('./style/i_love_qr.png'));
+            var svg_string = qr.imageSync('I love QR!', { type: 'png' });
 
-          var qr_svg = qr.image('I love QR!', { type: 'png' });
-          qr_svg.pipe(require('fs').createWriteStream('./style/i_love_qr.png'));
-          var svg_string = qr.imageSync('I love QR!', { type: 'png' });
-
-          var messageDataQR = {
-            recipient: {
-              id: senderID
-            },
-            message: {
-                attachment:{
-                  type: "image",
-                  payload:{
-                    url: "https://beermaster.herokuapp.com/style/i_love_qr.png"
+            var messageDataQR = {
+              recipient: {
+                id: senderID
+              },
+              message: {
+                  attachment:{
+                    type: "image",
+                    payload:{
+                      url: "https://beermaster.herokuapp.com/style/i_love_qr.png"
+                    }
                   }
-                }
-            }
-          };
-          callSendAPI(messageDataQR);
+              }
+            };
+
+            callSendAPI(messageDataQR); 
+          }
+          else{
+            sendTextMessage(senderID, "Parece que hubo un problema para generar tu recibo... lamentamos el inconveniente!");
+          }
+       });
+
+
     });
 }
 
