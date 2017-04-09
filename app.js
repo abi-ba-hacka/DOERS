@@ -366,7 +366,7 @@ function sendReceipt(senderID, itemPedidosList) {
   console.log("generando el recibo pa");
   var total = {total_cost: 0};
   var userDataPromise = userController.getUser(senderID);
-  var consumoCategoria[] = [{nom = "", costoCat = ""}]
+  var consumoCategoria = [{nom = "", costoCat = ""}]
 
   userDataPromise.then(function(result){
     console.log("me dieron los datos de fb " + result);
