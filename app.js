@@ -47,7 +47,7 @@ app.get('/testCoordinates', function (req, res) {
     });  
 });
 
-/*
+
 app.get('/insertPubs', function (req, res) {
     var newPub = {};
 
@@ -57,13 +57,13 @@ app.get('/insertPubs', function (req, res) {
       newPub.direction =  "Calle falsa 123";
       newPub.geoLatLang = " ";
       newPub.availableTime = "Horario: " + (10 + i) + ":00 a " + "05:00."; 
-      newPub.image = "https://beermaster.herokuapp.com/style/refugio " + i + ".png"
+      newPub.image = "https://beermaster.herokuapp.com/style/refugio" + i + ".jpeg"
       newPub.phone_number = "1524549287";
       pubController.insertPub(newPub);
     }
 
     res.send("Pubs creados"); 
-});*/
+});
 
 
 
@@ -261,7 +261,9 @@ function receivedMessage(event) {
       if(attachment.type == "location"){
           var title = attachment.title;
           var coordinates = attachment.payload.coordinates;
-          sendTextMessage(senderID, title + ": " + JSON.stringify(coordinates));
+          //sendTextMessage(senderID, title + ": " + JSON.stringify(coordinates));
+          sendPointList(senderID);
+          showMoreResults(senderID);
       }
   }
 }
@@ -325,6 +327,30 @@ function userStartPostback(senderID, userName){
 
   callSendAPI(messageData);
 }
+
+
+function showMoreResults(senderID){
+    var messageData = {
+      recipient: {
+        id: senderID
+      },
+      message: {
+        text:  "Puedes buscar en el mapa para ver mas resultados.",
+        buttons:[
+                    {
+                      type:"web_url",
+                      url:"https://beermaster.herokuapp.com/",
+                      title:"Ver Mapa",
+                      webview_height_ratio: "full" 
+                    }
+                  ]
+      }
+    };
+
+  callSendAPI(messageData);
+}
+
+
 function testQR(senderID) {
   var qr_svg = qr.image('I love QR!', { type: 'png' });
   qr_svg.pipe(require('fs').createWriteStream('./style/i_love_qr.png'));
@@ -573,9 +599,6 @@ function analyzeMessage(senderID, messageText){
       break;
       case "recibo":
         userGetsReceipt(senderID);
-      break;
-      case "point":
-        sendPointList(senderID);
       break;
       default:
         var botRequest = botApp.textRequest(messageText, botOptions);
