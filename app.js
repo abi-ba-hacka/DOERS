@@ -566,10 +566,10 @@ function userAddsItem(senderID, variedad, precio, url) {
                         buttons:[
                             {
                                 type:"web_url",
+                                messenger_extensions: true ,
                                 url:"https://beermaster.herokuapp.com/paymentGateway",
                                 title:"Pagar",
-                                webview_height_ratio: "tall",
-                                messenger_extensions: true 
+                                webview_height_ratio: "tall"
                             }
                         ]
                       }
