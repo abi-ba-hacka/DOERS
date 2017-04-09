@@ -362,7 +362,7 @@ function sendReceipt(senderID, itemPedidosList) {
   qr_svg.pipe(require('fs').createWriteStream('./style/i_love_qr.png'));
   var svg_string = qr.imageSync('I love QR!', { type: 'png' });
 
-  var messageData = {
+  var messageDataQR = {
     recipient: {
       id: senderID
     },
@@ -375,7 +375,7 @@ function sendReceipt(senderID, itemPedidosList) {
         }
     }
   };
-  callSendAPI(messageData);
+  callSendAPI(messageDataQR);
 
   });
 
