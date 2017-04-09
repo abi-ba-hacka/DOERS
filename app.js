@@ -355,10 +355,10 @@ function sendReceipt(senderID, itemPedidosList, callback) {
      });
   }
   callSendAPI(messageData);
-  callback(1)
 
 
   });
+    callback(1);
 }
 
 function userGetsReceipt(senderID) {
