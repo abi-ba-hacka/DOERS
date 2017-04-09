@@ -65,6 +65,10 @@ app.get('/insertPubs', function (req, res) {
     res.send("Pubs creados"); 
 });*/
 
+
+
+
+
 /*********************************************************************************/
 // About Aboutpage
 app.get('/About', function (req, res) {
@@ -454,7 +458,7 @@ function sendPointList(senderID){
   var promise = pubController.getAll();
 
   promise.then(function(pubs){
-      carouselController.getPubsToCarouselElement(function(carouselPubs){
+      carouselController.getPubsToCarouselElement(pubs, function(carouselPubs){
           messageData.message.attachment.payload.elements = carouselPubs;
       });
   });
