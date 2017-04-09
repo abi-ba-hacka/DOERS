@@ -299,12 +299,12 @@ function userStartPostback(senderID, userName){
           {
             content_type:"text",
             title:"Bares Patagonia",
-            payload:JSON.stringify({payload:"SEARCH_PATAGONIA_POINTS"});
+            payload:JSON.stringify({payload:"SEARCH_PATAGONIA_POINTS"})
           },
           {
             content_type:"text",
             title:"Cervezas Patagonia",
-            payload:JSON.stringify({payload:"SEARCH_PATAGONIA_BEERS"});
+            payload:JSON.stringify({payload:"SEARCH_PATAGONIA_BEERS"})
           }
         ]
       }
