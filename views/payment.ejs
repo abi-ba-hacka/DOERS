@@ -52,14 +52,14 @@
     <script src="style/js/bootstrap.min.js"></script>
     <script>
       window.extAsyncInit = function() {
-          document.getElementById("paymentButton").click(function(event) {
-                MessengerExtensions.requestCloseBrowser(function success() {
+      document.getElementById("paymentButton").addEventListener("click",function(){ 
+            MessengerExtensions.requestCloseBrowser(function success() {
                     console.log("Cerrar browser");
                 }, function error(err) {
                     console.log("Fallo cerrar browser");
                 });
-          });
-          
+        });
+
           MessengerExtensions.getUserID(function success(uids) {
           // User ID was successfully obtained. 
             var psid = uids.psid;
