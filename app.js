@@ -7,6 +7,7 @@ const
   request = require('request'),
   mongoose = require('mongoose'),
   apiai = require('apiai'),
+  qr = require('qr-image'),
   userController = require('./daos/userDao'),
   pedidoController = require('./controllers/pedidoController'),
   itemPedidoController = require('./daos/pedidoItemDao'),
@@ -292,6 +293,26 @@ function userStartPostback(senderID, userName){
 
   callSendAPI(messageData);
 }
+function testQR(senderID) {
+  var qr_svg = qr.image('I love QR!', { type: 'png' });
+  qr_svg.pipe(require('fs').createWriteStream('./style/i_love_qr.png'));
+  var svg_string = qr.imageSync('I love QR!', { type: 'png' });
+
+  var messageData = {
+    recipient: {
+      id: senderID
+    },
+    message: {
+        attachment:{
+          type: "image",
+          payload:{
+            url: "https://beermaster.herokuapp.com/style/i_love_qr.svg"
+          }
+        }
+    }
+  };
+  callSendAPI(messageData);
+}
 
 function sendReceipt(senderID, itemPedidosList) {
   console.log("generando el recibo pa");
@@ -452,6 +473,9 @@ function analyzeMessage(senderID, messageText){
   var botResponse;
 
     switch(messageText){
+      case "qr":
+        testQR(senderID);
+      break;
       case "location":
         shareLocation(senderID, "Para buscar cervezas cerca necesitamos conocer tu ubicación, puedes pasarnos una direccion o simplemente oprimir en 'Enviar ubicación.'");
       break;
