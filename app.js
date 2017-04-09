@@ -480,7 +480,7 @@ function sendReceipt(senderID, itemPedidosList) {
         consumoCategoria.indexOf(itemToAdd) === -1 ? consumoCategoria.push(itemToAdd) : console.log(consumoCategoria.indexOf(itemToAdd));
         total.total_cost += parseFloat(itemPedidosList[i].precio);
       }
-  
+  console.log("el consumo por cat quedo : " + consumoCategoria);
   var messageData = {
     recipient: {
       id: senderID
