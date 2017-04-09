@@ -656,6 +656,7 @@ function receivedPostback(messagingEvent){
                 });
             ;break;
             case "VIEW_MORE": 
+              console.log("voy a mostrar el detalleeee");
               showBarDetail(senderID, postBackObject.barId);
             ;break;
             case "AGREGAR":
