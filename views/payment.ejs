@@ -52,11 +52,11 @@
     <script src="style/js/bootstrap.min.js"></script>
     <script>
      var userID = "" ;
-      window.extAsyncInit = function() {
-          $( "#paymentButton" ).click(function() {
-              MessengerExtensions.requestCloseBrowser(function success() {
-                    console.log("Cerrar browser");
-                         $.ajax({
+
+     function postRetiro(){
+        $(document).ready(function() {
+                        alert("POST RETIRO!");
+                        $.ajax({
                            url:"https://beermaster.herokuapp.com/showRecibo",
                            data: {userId: userID},
                            dataType: 'jsonp', // Notice! JSONP <-- P (lowercase)
@@ -67,6 +67,15 @@
                                alert("Error");
                            }      
                         });
+                    });
+           }
+
+
+      window.extAsyncInit = function() {
+          $( "#paymentButton" ).click(function() {
+              MessengerExtensions.requestCloseBrowser(function success() {
+                    console.log("Cerrar browser");
+                    postRetiro();    
                 }, function error(err) {
                     console.log("Fallo cerrar browser");
                     console.log(err)
