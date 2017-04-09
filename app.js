@@ -484,8 +484,8 @@ function analyzeMessage(senderID, messageText){
 function receivedPostback(messagingEvent){
     var postBackObject = JSON.parse(messagingEvent.postback.payload);
     var senderID = messagingEvent.sender.id;
-
-     userController.getUser(senderID, function(user){
+    var userPromise = userController.getUser(senderID);
+    userPromise.then(function(user){
             if(!user){
               userController.getFBInformation(senderID, function(userData){
                   userController.insertUser({id: senderID, nombre : userData.first_name, apellido: userData.last_name, fotoPerfil: userData.profile_pic, genero: userData.gender , zona: userData.locale });
@@ -494,7 +494,7 @@ function receivedPostback(messagingEvent){
             }else{
                 analizePayloads(user.nombre);
             }
-    });
+  });
 
 
 
