@@ -366,19 +366,19 @@ function sendReceipt(senderID, itemPedidosList) {
   console.log("generando el recibo pa");
   var total = {total_cost: 0};
   var userDataPromise = userController.getUser(senderID);
-  var consumoCategoria[] = [{nom = "", costoCat = ""}]
+  var consumoCategoria = [];
 
   userDataPromise.then(function(result){
     console.log("me dieron los datos de fb " + result);
 
       for(var i = 0; i < itemPedidosList.length; i++)
       {
-        var itemToAdd = {nom = itemPedidosList[i].variedad, costoCat = itemPedidosList[i].precio};
-        console.log("voy a testear con " + itemToAdd);
+        var itemToAdd = {nom : itemPedidosList[i].variedad, costoCat : itemPedidosList[i].precio};
+        console.log("voy a testear con " + JSON.stringify(itemToAdd));
         consumoCategoria.indexOf(itemToAdd) === -1 ? consumoCategoria.push(itemToAdd) : console.log(consumoCategoria.indexOf(itemToAdd));
         total.total_cost += parseFloat(itemPedidosList[i].precio);
       }
-  
+  console.log("el consumo por cat quedo : " + JSON.stringify(consumoCategoria));
   var messageData = {
     recipient: {
       id: senderID
