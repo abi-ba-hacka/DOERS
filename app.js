@@ -377,7 +377,7 @@ function sendReceipt(senderID, itemPedidosList) {
         var posi = consumoCategoria.map(function(e) { return e.nom; }).indexOf(itemToAdd.nom);
         console.log("voy a testear con " + JSON.stringify(itemToAdd));
         console.log("posi " + posi);
-        consumoCategoria.map(function(e) { return e.nom; }).indexOf(itemToAdd.nom) === -1 ? consumoCategoria.push(itemToAdd) : consumoCategoria[posi].costoCat += itemToAdd.costoCat;
+        consumoCategoria.map(function(e) { return e.nom; }).indexOf(itemToAdd.nom) === -1 ? consumoCategoria.push(itemToAdd) : consumoCategoria[posi].costoCat += parseFloat(itemToAdd.costoCat);
         total.total_cost += parseFloat(itemPedidosList[i].precio);
       }
   console.log("el consumo por cat quedo : " + JSON.stringify(consumoCategoria));
