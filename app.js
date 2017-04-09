@@ -12,7 +12,7 @@ const
   pedidoController = require('./controllers/pedidoController'),
   pubController = require('./controllers/pubController'),
   carouselController = require('./controllers/carouselController'),
-  beerController = require('./daos/beerDao'),
+  //beerController = require('./daos/beerDao'),
   itemPedidoController = require('./daos/pedidoItemDao'),
   googleMapController = require('./controllers/googleMapController');
 
