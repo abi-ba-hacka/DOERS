@@ -492,7 +492,7 @@ function showBarDetail(senderID, idBar){
                         {
                           type:"postback",
                           title:"Ver Cervezas",
-                          payload: JSON.stringify({payload:"MENU", barId: idBar})
+                          payload: JSON.stringify({payload:"SHOW_BEER", barId: idBar})
                         }              
                       ]      
                     },
