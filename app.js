@@ -329,7 +329,8 @@ function sendReceipt(senderID, itemPedidosList) {
   {
      messageData.message.attachment.payload.elements.push({
         title: itemPedidosList[i].variedad,
-        price: itemPedidosList[i].precio
+        price: itemPedidosList[i].precio,
+        image_url: "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-Amber-Larger-1000x1467_1024x1024_10b329a6-d70d-4408-b697-343e841337ff_1024x1024.png?v=1465834626"
      });
   }
   callSendAPI(messageData);
