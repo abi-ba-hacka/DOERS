@@ -628,7 +628,7 @@ function analyzeMessage(senderID, messageText){
 
 function receivedPostback(messagingEvent){
       var postBackObject = {};
-      console.log("recibi postback:");
+      console.log("recibi postback:" + messagingEvent);
       try {
          postBackObject =  JSON.parse(messagingEvent.postback.payload);
       } catch (e) {
