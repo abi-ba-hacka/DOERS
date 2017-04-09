@@ -754,7 +754,7 @@ function beerMenu(senderID, local) {
 
         messageData.message.attachment.payload.elements.push({
           title: beer[i].description,
-          subtitle: beer[i].price,
+          subtitle: "Precio: " + beer[i].price,
           image_url: beer[i].image,
           buttons: [{
                        type: "postback",
@@ -797,7 +797,7 @@ function snackMenu(senderID, barId) {
 
               messageData.message.attachment.payload.elements.push({
               title: snacks[i].description,
-              subtitle: snacks[i].price,
+              subtitle: "Precio: " + snacks[i].price,
               image_url: snacks[i].image,
               buttons: [{
                            type: "postback",
