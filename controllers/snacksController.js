@@ -23,9 +23,9 @@ module.exports  =  {
 		        });
 		},
 		getAll: function(){
-				return Pub.find(function(err, snack) {
+				return Snack.find(function(err, snacks) {
 				  if (err)  console.error(err);
-				  		return snack;
+				  		return snacks;
 				});
 		}
 }
