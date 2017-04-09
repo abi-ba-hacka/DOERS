@@ -12,7 +12,7 @@ const
   pedidoController = require('./controllers/pedidoController'),
   pubController = require('./controllers/pubController'),
   carouselController = require('./controllers/carouselController'),
-  //beerController = require('./daos/beerDao'),
+  beerController = require('./daos/beerDao'),
   itemPedidoController = require('./daos/pedidoItemDao'),
   googleMapController = require('./controllers/googleMapController');
 
@@ -693,9 +693,9 @@ function beerMenu(senderID, local) {
       }
     }
   };  
-   /* beerController.getBeerPerLocal(local ,function(beer){
+    beerController.getBeerPerLocal(local ,function(beer){
       console.log("obtuve " + beer);
-    });*/
+    });
     postbackObject.variedad = "Patagonia Amber Lager";
     postbackObject.precio = "68";
     postbackObject.url = "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-Amber-Larger-1000x1467_1024x1024_10b329a6-d70d-4408-b697-343e841337ff_1024x1024.png?v=1465834626";
