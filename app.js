@@ -469,10 +469,9 @@ function sendPointList(senderID){
   promise.then(function(pubs){
       carouselController.getPubsToCarouselElement(pubs,function(carouselPubs){
           messageData.message.attachment.payload.elements = carouselPubs;
+          callSendAPI(messageData); 
       });
   });
-
-  callSendAPI(messageData); 
 }
 
 function showBarDetail(senderID, idBar){
