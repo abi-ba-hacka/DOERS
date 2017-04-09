@@ -531,7 +531,7 @@ function askMenu(senderID, local) {
     }
   };  
 
-  postbackObject.variedad = "Amber Lager";
+  postbackObject.variedad = "Patagonia Amber Lager";
   postbackObject.precio = "68";
   messageData.message.attachment.payload.elements.push({
         title: "Amber Lager",  
@@ -543,7 +543,7 @@ function askMenu(senderID, local) {
                   }]
   });
 
-  postbackObject.variedad = "Bohemian Pilsener";
+  postbackObject.variedad = "Patagonia Bohemian Pilsener";
   postbackObject.precio = "68";
   messageData.message.attachment.payload.elements.push({
         title: "Bohemian Pilsener",  
@@ -559,6 +559,30 @@ function askMenu(senderID, local) {
   messageData.message.attachment.payload.elements.push({
         title: "Patagonia Küné",  
         image_url: "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-Kune-1000x1467_987808b4-187e-4a71-a7f3-fd05793467c7_1024x1024.png?v=1465834661" ,
+        buttons: [{
+                   type: "postback",
+                   title: "Agregar Item",
+                   payload: JSON.stringify(postbackObject)
+                  }]
+  });
+
+  postbackObject.variedad = "Patagonia Weisse";
+  postbackObject.precio = "68";
+  messageData.message.attachment.payload.elements.push({
+        title: "Patagonia Weisse",  
+        image_url: "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-Weisse-1000x1467_1024x1024.png?v=1465834681" ,
+        buttons: [{
+                   type: "postback",
+                   title: "Agregar Item",
+                   payload: JSON.stringify(postbackObject)
+                  }]
+  });
+
+  postbackObject.variedad = "Patagonia 24.7 - Session IPA con Sauco";
+  postbackObject.precio = "58";
+  messageData.message.attachment.payload.elements.push({
+        title: "Patagonia 24.7 - Session IPA con Sauco",  
+        image_url: "https://cdn.shopify.com/s/files/1/1103/5152/products/Patagonia-24-7-1000x1467_1024x1024.jpg?v=1483734202" ,
         buttons: [{
                    type: "postback",
                    title: "Agregar Item",
