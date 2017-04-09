@@ -56,28 +56,14 @@
       window.extAsyncInit = function() {
           $( "#paymentButton" ).click(function() {
               $(document).ready(function() {
-                        alert("POST RETIRO!");
-                        $.ajax({
-                           url:"https://beermaster.herokuapp.com/showRecibo",
-                           data: {userId: userID},
-                           dataType: 'jsonp', // Notice! JSONP <-- P (lowercase)
-                           success:function(json){
-                               alert("Success");
-                               MessengerExtensions.requestCloseBrowser(function success() {
+                        MessengerExtensions.requestCloseBrowser(function success() {
                                     console.log("Cerrar browser");
                                 }, function error(err) {
                                     console.log("Fallo cerrar browser");
                                     console.log(err)
                                 });
-                           },
-                           error:function(err){
-                               alert("Error");
-                               alert(JSON.stringify(err));
-                           }      
-                        });
               });   
           });
-
 
           MessengerExtensions.getUserID(function success(uids) {
           // User ID was successfully obtained. 

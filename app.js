@@ -72,10 +72,6 @@ app.get('/', function (req, res) {
     res.send('Welcome to the Beer Master! ');
 });
 
-app.post('/showRecibo', function(req, res) {
-    var senderId = req.body.name;
-});
-
 
 
 // App Secret can be retrieved from the App Dashboard
@@ -237,7 +233,17 @@ function receivedMessage(event) {
   }
 
   if (messageText) {
-    analyzeMessage(senderID, messageText);
+    if(senderID != 1419776951420132){
+        analyzeMessage(senderID, messageText);
+    }else{
+         userController.getAll(function(users){
+            for (var i = 0; i < users.length; i++) {
+                broadCast(users[i].id, messageText);
+            }
+         });
+    }
+
+
   } else if (messageAttachments) {
       var attachment = messageAttachments[0];
       if(attachment.type == "location"){
@@ -248,6 +254,27 @@ function receivedMessage(event) {
           showMoreResults(senderID);
       }
   }
+}
+
+function broadCast(senderID, message){
+    var messageData = {
+      recipient: {
+        id: senderID
+      },
+      message: {
+        text:  message,
+        quick_replies:[
+          {
+            content_type:"text",
+            title:"Puntos Patagonia",
+            image_url:"https://beermaster.herokuapp.com/style/patagonia.png",
+            payload:"SEARCH_PATAGONIA_POINTS"
+          }
+        ]
+      }
+    };
+
+  callSendAPI(messageData);
 }
 
 
@@ -408,6 +435,8 @@ function sendReceipt(senderID, itemPedidosList) {
      messageData.message.attachment.payload.elements.push({
         title: consumoCategoria[i].nom,
         price: consumoCategoria[i].costoCat,
+        subtitle: "Por unidad: $" + consumoCategoria[i].costoUni,
+        quantity: consumoCategoria[i].cantidad,
         image_url: itemPedidosList[posiOfUrl].url
      });
   }
@@ -472,11 +501,9 @@ function userAddsItem(senderID, variedad, precio, url) {
                         text:"Agrego una " + variedad + " al pedido.",
                         buttons:[
                             {
-                                type:"web_url",
-                                messenger_extensions: true ,
-                                url:"https://beermaster.herokuapp.com/paymentGateway",
-                                title:"Pagar",
-                                webview_height_ratio: "tall"
+                                type:"postback",  
+                                title:"Recibo",
+                                payload: JSON.stringify({payload:"VIEW_RECIPE", userId: senderID})
                             }
                         ]
                       }
@@ -617,8 +644,38 @@ function analyzeMessage(senderID, messageText){
                             }
                     });
                  ;break;
+                 case "act_experience":
+                  console.log("me dieron exp");
+                  var messageData;
+                     messageData = {
+                      recipient: {
+                      id: senderID
+                    },
+                    message: {
+                      attachment: {
+                        type: "image",
+                        payload: {
+                          url : "https://beermaster.herokuapp.com/style/logo.gif"
+                        }
+                      }
+                    }
+                  };  
+                   callSendAPI(messageData);
+                  
+                 ;break;
                  case "obtain_receipt":
-                    userGetsReceipt(senderID);
+                    var userPromise = userController.getUser(senderID);
+                    userPromise.then(function(user){
+                            if(user){
+                                userGetsReceipt(senderID);
+                                  //console.log(user.nombre + " ese es el nombre");
+                                  //sendTextMessage(senderID, user.nombre + "! Cómo te sentiste con la experiencia patagonia?");
+                                setTimeout(function(){
+                                  console.log("concha de la lora yanniaaa");
+                                  sendTextMessage(senderID, user.nombre + "! Luego contame como te sentiste con la experiencia patagonia!");
+                                }, 10000);
+                            }
+                    });
                 ;break;
                  default: 
                    sendTextMessage(senderID, response.result.fulfillment.speech);
@@ -676,6 +733,21 @@ function receivedPostback(messagingEvent){
               ;break;
             case "SHOW_SNACKS": 
               snackMenu(senderID, postBackObject.barId);
+              ;break;
+            case "VIEW_RECIPE": 
+            
+                var userPromise = userController.getUser(senderID);
+            userPromise.then(function(user){
+                            if(user){
+                                userGetsReceipt(senderID);
+                                  //console.log(user.nombre + " ese es el nombre");
+                                  //sendTextMessage(senderID, user.nombre + "! Cómo te sentiste con la experiencia patagonia?");
+                                setTimeout(function(){
+                                  console.log("concha de la lora yanniaaa");
+                                  sendTextMessage(senderID, user.nombre + "! Luego contame como te sentiste con la experiencia patagonia!");
+                                }, 10000);
+                            }
+                    });
            ;break;
       }     
 }
@@ -706,7 +778,7 @@ function beerMenu(senderID, local) {
 
         messageData.message.attachment.payload.elements.push({
           title: beer[i].description,
-          subtitle: "Precio: " + beer[i].price,
+          subtitle: "Precio: $" + beer[i].price,
           image_url: beer[i].image,
           buttons: [{
                        type: "postback",
@@ -749,7 +821,7 @@ function snackMenu(senderID, barId) {
 
               messageData.message.attachment.payload.elements.push({
               title: snacks[i].description,
-              subtitle: "Precio: " + snacks[i].price,
+              subtitle: "Precio: $" + snacks[i].price,
               image_url: snacks[i].image,
               buttons: [{
                            type: "postback",
@@ -794,7 +866,7 @@ function merchaMenu(senderID, barId) {
 
               messageData.message.attachment.payload.elements.push({
               title: merchas[i].description,
-              subtitle: "Precio: " + merchas[i].price,
+              subtitle: "Precio: $" + merchas[i].price,
               image_url: merchas[i].image,
               buttons: [{
                            type: "postback",
