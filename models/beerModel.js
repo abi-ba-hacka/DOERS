@@ -4,15 +4,14 @@ var Schema = mongoose.Schema;
 
 //Schema Query
 //***********
-var BeerSchema = new Schema({
-	id: { type: String },                      
+var BeerSchema = new Schema({                    
     pubId: { type: String},
     name: { type: String},
     description: { type: String},
     price: { type: String},
     image: { type: String}    
-}, { collection : 'Merchandisings' })
+}, { collection : 'BeerPerLocal' })
 
-var Merchandising = mongoose.model('Merchandising', MerchandisingSchema);
+var Beer = mongoose.model('Beer', BeerSchema);
 
-module.exports = Merchandising;
+module.exports = Beer;
