@@ -492,7 +492,7 @@ function showBarDetail(senderID, idBar){
                         {
                           type:"postback",
                           title:"Ver Cervezas",
-                          payload: JSON.stringify({payload:"SHOW_BEER", barId: idBar})
+                          payload: JSON.stringify({payload:"MENU", barId: idBar})
                         }              
                       ]      
                     },
@@ -639,6 +639,9 @@ function receivedPostback(messagingEvent){
               ;break;
             case "SHOW_SNACKS": 
              sendTextMessage(senderID, "Ver snacks de " + postBackObject.barId);
+              ;break;
+            case "MENU":
+              askMenu(senderID, 2);
               ;break;
           }
      }
